@@ -1,10 +1,8 @@
 package es.deusto.spq.server.jdo;
 
-import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.PrimaryKey;
 
-@PersistenceCapable
-public class Client {
+public class Customer {
     @PrimaryKey
     int id = 0;
     String name = null;
@@ -15,7 +13,7 @@ public class Client {
     int phone = 0;
     // Posible añadir más atributos como el historial de reservas, etc.
 
-    public Client(int id, String name, String surname, String email, String password, String address, int phone) {
+    public Customer(int id, String name, String surname, String email, String password, String address, int phone) {
         this.id = id;
         this.name = name;
         this.surname = surname;
