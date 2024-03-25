@@ -25,9 +25,12 @@ public class VentanaRegistro {
         ventana.add(panel);
 
 
-
-
         
+
+
+
+
+
 
         // Hacer visible la ventana
         ventana.setVisible(true);
