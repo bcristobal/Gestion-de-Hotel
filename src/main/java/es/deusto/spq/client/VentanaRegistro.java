@@ -24,6 +24,11 @@ public class VentanaRegistro {
         // Agregar el panel a la ventana
         ventana.add(panel);
 
+
+
+
+        
+
         // Hacer visible la ventana
         ventana.setVisible(true);
     }
