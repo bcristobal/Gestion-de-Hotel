@@ -21,11 +21,15 @@ public class VentanaRegistro {
         // Agregar el botón al panel
         panel.add(boton);
 
+
+        
         // Agregar el panel a la ventana
         ventana.add(panel);
 
 
-        
+
+
+
 
 
 
