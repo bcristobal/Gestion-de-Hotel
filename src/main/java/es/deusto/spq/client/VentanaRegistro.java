@@ -1,31 +1,89 @@
 package es.deusto.spq.client;
 import javax.swing.*;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.GroupLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 public class VentanaRegistro {
+    private JFrame frame;
+
+    public VentanaRegistro() {
+        frame = new JFrame("Ventana de Registro");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setBackground(Color.BLACK);
+        frame.setLayout(new BorderLayout());
+
+        // Panel principal con GroupLayout
+        JPanel panelRegistro = new JPanel();
+        GroupLayout layout = new GroupLayout(panelRegistro);
+        panelRegistro.setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
+        // Componentes de registro
+        JLabel nombreLabel = new JLabel("Nombre:");
+        JTextField nombreTextField = new JTextField();
+        JLabel apellidoLabel = new JLabel("Apellido:");
+        JTextField apellidoTextField = new JTextField();
+        JLabel usuarioLabel = new JLabel("Dni:");
+        JTextField usuarioTextField = new JTextField();
+        JLabel edadLabel = new JLabel("Edad:");
+        JTextField edadTextField = new JTextField();
+        JLabel contraseñaLabel = new JLabel("Contraseña:");
+        JPasswordField contraseñaPasswordField = new JPasswordField();
+
+        // Configuración del GroupLayout
+        layout.setHorizontalGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                .addComponent(nombreLabel)
+                .addComponent(apellidoLabel)
+                .addComponent(usuarioLabel)
+                .addComponent(contraseñaLabel)
+                .addComponent(edadLabel))
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(nombreTextField)
+                .addComponent(apellidoTextField)
+                .addComponent(usuarioTextField)
+                .addComponent(contraseñaPasswordField)
+                .addComponent(edadTextField))
+        );
+
+        layout.setVerticalGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addComponent(nombreLabel)
+                .addComponent(nombreTextField))
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addComponent(apellidoLabel)
+                .addComponent(apellidoTextField))
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addComponent(usuarioLabel)
+                .addComponent(usuarioTextField))
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addComponent(contraseñaLabel)
+                .addComponent(contraseñaPasswordField))
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addComponent(edadLabel)
+                .addComponent(edadTextField))
+        );
+
+        // Agregar el panel al centro
+        frame.add(panelRegistro, BorderLayout.CENTER);
+    }
+
+    public void mostrarVentana() {
+        frame.setVisible(true);
+    }
+
     public static void main(String[] args) {
-        // Crear una nueva ventana
-        JFrame ventana = new JFrame("Ventana de Registro");
-
-        // Configurar el tamaño de la ventana
-        ventana.setSize(400, 300);
-
-        // Configurar la operación por defecto al cerrar la ventana
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Crear un panel para agregar componentes
-        JPanel panel = new JPanel();
-
-        // Crear un botón
-        JButton boton = new JButton("Registrar");
-
-        // Agregar el botón al panel
-        panel.add(boton);
-
-        // Agregar el panel a la ventana
-        ventana.add(panel);
-
-
-        // Hacer visible la ventana
-        ventana.setVisible(true);
+        VentanaRegistro ventanaRegistro = new VentanaRegistro();
+        ventanaRegistro.mostrarVentana();
     }
 }
+
