@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -38,6 +39,7 @@ public class VentanaRegistro {
         JTextField edadTextField = new JTextField();
         JLabel contraseñaLabel = new JLabel("Contraseña:");
         JPasswordField contraseñaPasswordField = new JPasswordField();
+        JButton aceptarButton = new JButton("Aceptar");
 
         // Configuración del GroupLayout
         layout.setHorizontalGroup(layout.createSequentialGroup()
@@ -73,8 +75,6 @@ public class VentanaRegistro {
                 .addComponent(edadTextField))
         );
 
-        // Crear el botón de aceptar
-        JButton aceptarButton = new JButton("Aceptar");
 
         // Configurar la posición del botón en la esquina inferior derecha
         frame.add(aceptarButton, BorderLayout.SOUTH);
