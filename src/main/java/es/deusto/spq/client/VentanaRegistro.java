@@ -73,6 +73,12 @@ public class VentanaRegistro {
                 .addComponent(edadTextField))
         );
 
+        // Crear el botón de aceptar
+        JButton aceptarButton = new JButton("Aceptar");
+
+        // Configurar la posición del botón en la esquina inferior derecha
+        frame.add(aceptarButton, BorderLayout.SOUTH);
+
         // Agregar el panel al centro
         frame.add(panelRegistro, BorderLayout.CENTER);
     }
