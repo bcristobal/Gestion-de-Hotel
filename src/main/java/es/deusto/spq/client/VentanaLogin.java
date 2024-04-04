@@ -62,6 +62,6 @@ public class VentanaLogin {
         frame.setVisible(true);
     }
     public static void main(String[] args) {
-        new VentanaLogin();
+        new VentanaLogin(); // Could make problems with the java version
     }
 }
