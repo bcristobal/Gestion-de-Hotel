@@ -1,10 +1,9 @@
 package es.deusto.spq.pojo;
 
 public class CustomerData {
-    int id = 0;
+    String email = null;
     String name = null;
     String surname = null;
-    String email = null;
     String password = null;
     String address = null;
     int phone = 0;
@@ -12,10 +11,6 @@ public class CustomerData {
 
     public CustomerData() {
         // required by serialization
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getName() {
@@ -36,6 +31,10 @@ public class CustomerData {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

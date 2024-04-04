@@ -6,27 +6,21 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable
 public class Customer {
     @PrimaryKey
-    int id = 0;
+    String email = null;
     String name = null;
     String surname = null;
-    String email = null;
     String password = null;
     String address = null;
     int phone = 0;
     // Posible añadir más atributos como el historial de reservas, etc.
 
-    public Customer(int id, String name, String surname, String email, String password, String address, int phone) {
-        this.id = id;
+    public Customer(String email, String name, String surname, String password, String address, int phone) {
+        this.email = email;
         this.name = name;
         this.surname = surname;
-        this.email = email;
         this.password = password;
         this.address = address;
         this.phone = phone;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getName() {
@@ -47,6 +41,10 @@ public class Customer {
 
     public String getEmail() {
         return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -71,5 +69,9 @@ public class Customer {
 
     public void setPhone(int phone) {
         this.phone = phone;
+    }
+
+    public String toString() {
+        return "[email=" + email + ", name=" + name + ", surname=" + surname + ", password=" + password + ", address=" + address + ", phone=" + phone + "]";
     }
 }

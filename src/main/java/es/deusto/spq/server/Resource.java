@@ -9,6 +9,7 @@ import javax.jdo.Transaction;
 import es.deusto.spq.server.jdo.User;
 import es.deusto.spq.server.jdo.Customer;
 import es.deusto.spq.server.jdo.Message;
+import es.deusto.spq.pojo.CustomerData;
 import es.deusto.spq.pojo.DirectMessage;
 import es.deusto.spq.pojo.MessageData;
 import es.deusto.spq.pojo.UserData;
@@ -118,25 +119,23 @@ public class Resource {
 
 	@POST
 	@Path("/registerCustomer")
-	public Response registerCustomer(UserData userData) {
+	public Response registerCustomer(CustomerData customerData) {
 		try
         {	
             tx.begin();
-            logger.info("Checking whether the customer already exits or not: '{}'", userData.getLogin());
+            logger.info("Checking whether the customer already exits or not: '{}'", customerData.getEmail());
 			Customer customer = null;
 			try {
-				customer = pm.getObjectById(Customer.class, userData.getLogin());
+				customer = pm.getObjectById(Customer.class, customerData.getEmail());
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				logger.info("Exception launched: {}", jonfe.getMessage());
 			}
 			logger.info("Customer: {}", customer);
-			if (customer != null) {
-				logger.info("Setting password customer: {}", customer);
-				customer.setPassword(userData.getPassword());
-				logger.info("Password set customer: {}", customer);
-			} else {
+			if (customer != null) { // this customer already exists
+				logger.info("This customer already exists: {}", customer);
+			} else { // this customer does not exist
 				logger.info("Creating customer: {}", customer);
-				// TODO customer = new Customer(userData.getLogin(), userData.getPassword());
+				customer = new Customer(customerData.getEmail(), customerData.getName(), customerData.getSurname(), customerData.getPassword(), customerData.getAddress(), customerData.getPhone());
 				pm.makePersistent(customer);					 
 				logger.info("Customer created: {}", customer);
 			}
