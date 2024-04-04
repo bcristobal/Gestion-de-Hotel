@@ -7,6 +7,7 @@ import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
 import es.deusto.spq.server.jdo.User;
+import es.deusto.spq.server.jdo.Customer;
 import es.deusto.spq.server.jdo.Message;
 import es.deusto.spq.pojo.DirectMessage;
 import es.deusto.spq.pojo.MessageData;
@@ -115,6 +116,43 @@ public class Resource {
 		}
 	}
 
+	@POST
+	@Path("/registerCustomer")
+	public Response registerCustomer(UserData userData) {
+		try
+        {	
+            tx.begin();
+            logger.info("Checking whether the customer already exits or not: '{}'", userData.getLogin());
+			Customer customer = null;
+			try {
+				customer = pm.getObjectById(Customer.class, userData.getLogin());
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+			logger.info("Customer: {}", customer);
+			if (customer != null) {
+				logger.info("Setting password customer: {}", customer);
+				customer.setPassword(userData.getPassword());
+				logger.info("Password set customer: {}", customer);
+			} else {
+				logger.info("Creating customer: {}", customer);
+				// TODO customer = new Customer(userData.getLogin(), userData.getPassword());
+				pm.makePersistent(customer);					 
+				logger.info("Customer created: {}", customer);
+			}
+			tx.commit();
+			return Response.ok().build();
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+      
+		}
+	}
+
 	@GET
 	@Path("/hello")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -128,4 +166,6 @@ public class Resource {
 	public Response sayMyName() {
 		return Response.ok("My name is Beñat").build();
 	}
+
+
 }
