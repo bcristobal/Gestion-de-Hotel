@@ -152,6 +152,47 @@ public class Resource {
 		}
 	}
 
+	@POST
+	@Path("/login")
+	public Response loginCustomer(CustomerData customerData) {
+		try
+        {	
+            tx.begin();
+            logger.info("Checking whether the customer exists or not: '{}'", customerData.getEmail());
+			Customer customer = null;
+			try {
+				customer = pm.getObjectById(Customer.class, customerData.getEmail());
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+			logger.info("Customer: {}", customer);
+			if (customer != null) { // this customer exists
+				if(customer.getPassword().equals(customerData.getPassword())) { // password matches
+					logger.info("Login successful for customer: {}", customer);
+					tx.commit();
+					return Response.ok().build();
+				} else { // password does not match
+					logger.info("Incorrect password for customer: {}", customer);
+					tx.commit();
+					return Response.status(Status.UNAUTHORIZED).build();
+				}
+			} else { // this customer does not exist
+				logger.info("Customer does not exist: {}", customerData.getEmail());
+				tx.commit();
+				return Response.status(Status.NOT_FOUND).build();
+			}
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+      
+		}
+	}
+	
+
 	@GET
 	@Path("/hello")
 	@Produces(MediaType.TEXT_PLAIN)
