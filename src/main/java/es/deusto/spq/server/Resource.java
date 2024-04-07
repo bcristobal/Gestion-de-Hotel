@@ -7,11 +7,15 @@ import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
 import es.deusto.spq.server.jdo.User;
+import es.deusto.spq.server.jdo.Booking;
 import es.deusto.spq.server.jdo.Customer;
 import es.deusto.spq.server.jdo.Message;
+import es.deusto.spq.server.jdo.Room;
+import es.deusto.spq.pojo.BookingData;
 import es.deusto.spq.pojo.CustomerData;
 import es.deusto.spq.pojo.DirectMessage;
 import es.deusto.spq.pojo.MessageData;
+import es.deusto.spq.pojo.RoomData;
 import es.deusto.spq.pojo.UserData;
 
 import javax.ws.rs.GET;
@@ -191,7 +195,76 @@ public class Resource {
       
 		}
 	}
+
+	@POST
+	@Path("/registerRoom")
+	public Response registerRoom(RoomData roomData) {
+		try
+        {	
+            tx.begin();
+            logger.info("Checking whether the room already exits or not: '{}'", roomData.getNumber());
+			Room room = null;
+			try {
+				room = pm.getObjectById(Room.class, roomData.getNumber());
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+			logger.info("room: {}", room);
+			if (room != null) { // this room already exists
+				logger.info("This room already exists: {}", room);
+			} else { // this room does not exist
+				logger.info("Creating room: {}", room);
+				room = new Room(roomData.getNumber(), roomData.getCapacity(), roomData.getType(), roomData.getPrice(), roomData.getDescription());
+				pm.makePersistent(room);					 
+				logger.info("Room created: {}", room);
+			}
+			tx.commit();
+			return Response.ok().build();
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+      
+		}
+	}
 	
+	@POST
+	@Path("/registerBooking")
+	public Response registerBooking(BookingData bookingData) {
+		try
+	    {	
+	        tx.begin();
+	        logger.info("Checking whether the booking already exits or not: '{}'", bookingData.getId());
+			Booking booking = null;
+			try {
+				booking = pm.getObjectById(Booking.class, bookingData.getId());
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+			logger.info("booking: {}", booking);
+			if (booking != null) { // this booking already exists
+				logger.info("This booking already exists: {}", booking);
+			} else { // this booking does not exist
+				logger.info("Creating booking: {}", booking);
+				booking = new Booking(bookingData.getId(), bookingData.getRoom(), bookingData.getCustomer(), bookingData.getCheckIn(), bookingData.getDays());
+				pm.makePersistent(booking);					 
+				logger.info("Booking created: {}", booking);
+			}
+			tx.commit();
+			return Response.ok().build();
+	    }
+	    finally
+	    {
+	        if (tx.isActive())
+	        {
+	            tx.rollback();
+	        }
+	  
+		}
+	}
 
 	@GET
 	@Path("/hello")
