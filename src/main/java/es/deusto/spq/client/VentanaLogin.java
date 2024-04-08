@@ -61,6 +61,10 @@ public class VentanaLogin {
         // Make the frame visible
         frame.setVisible(true);
     }
+    
+    public void mostrarVentana() {
+        frame.setVisible(true);
+    }
     public static void main(String[] args) {
         new VentanaLogin(); // Could make problems with the java version
     }

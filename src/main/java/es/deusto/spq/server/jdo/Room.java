@@ -2,6 +2,11 @@ package es.deusto.spq.server.jdo;
 
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.PrimaryKey;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
+
+import es.deusto.spq.pojo.RoomData;
 
 @PersistenceCapable
 public class Room {
@@ -57,5 +62,6 @@ public class Room {
         this.description = description;
     }
 }
+
 
     
