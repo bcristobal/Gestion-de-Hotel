@@ -2,6 +2,8 @@ package es.deusto.spq.client;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,10 +27,14 @@ public class VentanaReservar extends JFrame{
 						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
 		setVisible(true);
 		
-		
-		
 		add(bAceptar, BorderLayout.SOUTH);
 		
-		
+		bAceptar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 	}
 }

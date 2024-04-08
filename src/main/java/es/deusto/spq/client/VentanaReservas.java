@@ -11,7 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
+import es.deusto.spq.pojo.RoomData;
 import es.deusto.spq.server.jdo.Booking;
+import es.deusto.spq.server.jdo.Customer;
+import es.deusto.spq.server.jdo.Room;
 
 public class VentanaReservas extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -43,7 +46,6 @@ public class VentanaReservas extends JFrame {
 		        int index = listaReservas.getSelectedIndex();
 		        if (index != -1) {
 		            modeloReservas.remove(index);
-		            
 		        }	
 			}
 		});
