@@ -13,11 +13,11 @@ public class VentanaLogin {
     private JTextField textField;
     private JPasswordField passwordField;
 
-    public VentanaLogin() {
-        initialize();
+    public VentanaLogin(Container container) {
+        initialize(container);
     }
 
-    private void initialize() {
+    private void initialize(Container container) {
         frame = new JFrame();
         frame.setTitle("Login");
         frame.setBounds(100, 100, 450, 300);
@@ -28,7 +28,7 @@ public class VentanaLogin {
 
 
         // Create and set properties for username label
-        JLabel lblUsername = new JLabel("Username");
+        JLabel lblUsername = new JLabel("Email");
         lblUsername.setBounds(58, 100, 82, 16); // Modified
         frame.getContentPane().add(lblUsername);
 
@@ -58,7 +58,10 @@ public class VentanaLogin {
 
 
                 // TODO: Handle login
-
+                Boolean isLoged =container.loginCustomer(textField.getText(), passwordField.getText());
+                if (isLoged) {
+                    new VentanaCliente();
+                }
 
                 
             }
@@ -72,7 +75,5 @@ public class VentanaLogin {
     public void mostrarVentana() {
         frame.setVisible(true);
     }
-    public static void main(String[] args) {
-        new VentanaLogin(); // Could make problems with the java version
-    }
+
 }

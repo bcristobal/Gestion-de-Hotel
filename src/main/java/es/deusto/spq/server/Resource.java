@@ -160,7 +160,7 @@ public class Resource {
 	}
 
 	@POST
-	@Path("/login")
+	@Path("/loginCustomer")
 	public Response loginCustomer(CustomerData customerData) {
 		try
         {	

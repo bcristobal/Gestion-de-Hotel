@@ -114,11 +114,12 @@ public class VentanaRegistro {
                 }
 
                 // Validar el formato del correo electrónico
+                /* 
                 if (!email.matches("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b")) {
                     JOptionPane.showMessageDialog(frame, "El correo electrónico no es válido", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-
+                */
                 // Validar que el teléfono sea un número válido
                 int teléfono;
                 try {
