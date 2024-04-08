@@ -33,6 +33,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import es.deusto.spq.server.jdo.User;
+
 public class VentanaCliente extends JFrame{
 	/**
 	 * 
@@ -52,7 +54,7 @@ public class VentanaCliente extends JFrame{
 	private JMenuItem menuItemReservas = new JMenuItem("Reservas");
 	private JMenuItem menuItemCerrarSesion = new JMenuItem("Cerrar sesión");
 	private JButton bUsuario = new JButton("");
-	
+	protected User user;
 	//MenuIzq
 	private JButton bReservar = new JButton("Reservar");
 	  int minValue = 0;
@@ -180,7 +182,6 @@ public class VentanaCliente extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
 				new VentanaReservar();
 			}
 		});
@@ -198,7 +199,6 @@ public class VentanaCliente extends JFrame{
 	        imageLabel.setIcon(new ImageIcon(image));
 	    }
 
-	
     public static void main(String[] args) {
         new  VentanaCliente();
     }
