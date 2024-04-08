@@ -3,12 +3,16 @@ package es.deusto.spq.server;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
+
+import java.util.List;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
 
 import es.deusto.spq.server.jdo.User;
 import es.deusto.spq.server.jdo.Customer;
 import es.deusto.spq.server.jdo.Message;
+import es.deusto.spq.server.jdo.Room;
 import es.deusto.spq.pojo.CustomerData;
 import es.deusto.spq.pojo.DirectMessage;
 import es.deusto.spq.pojo.MessageData;
@@ -191,6 +195,51 @@ public class Resource {
       
 		}
 	}
+
+	@GET
+	@Path("/getRooms")
+	public static Response getRooms () {
+		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Room> rooms = null;
+		try {
+			tx.begin();
+			logger.info("Creating query ...");
+			Query<Room> q = pm.newQuery(Room.class);
+			rooms = q.executeList();
+			logger.info("Rooms retrieved: {}", rooms);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+		}
+		return Response.ok(rooms).build();
+	}
+
+	@GET
+	@Path("/getCustomers")
+	public static Response getCustomers () {
+		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		List<Customer> customers = null;
+		try {
+			tx.begin();
+			logger.info("Creating query ...");
+			Query<Customer> q = pm.newQuery(Customer.class);
+			customers = q.executeList();
+			logger.info("Customers retrieved: {}", customers);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+		}
+		return Response.ok(customers).build();
+	}
+	
 	
 
 	@GET
