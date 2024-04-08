@@ -60,7 +60,7 @@ public class VentanaLogin {
                 // TODO: Handle login
                 Boolean isLoged =container.loginCustomer(textField.getText(), passwordField.getText());
                 if (isLoged) {
-                    new VentanaCliente();
+                    new VentanaCliente(container);
                 }
 
                 

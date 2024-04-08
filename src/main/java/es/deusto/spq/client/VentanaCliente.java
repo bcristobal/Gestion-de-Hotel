@@ -35,12 +35,14 @@ import javax.swing.event.ListSelectionListener;
 
 import es.deusto.spq.server.jdo.User;
 
-public class VentanaCliente extends JFrame{
+public class VentanaCliente{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private JFrame frame;
+	
 	private JPanel pNorth = new JPanel(new BorderLayout());
 	private JPanel pNorthDrch = new JPanel(new BorderLayout());
 	private JPanel pSouth = new JPanel(new GridLayout());
@@ -79,19 +81,24 @@ public class VentanaCliente extends JFrame{
             "src/main/resources/hab2.jpg",
             "src/main/resources/hab3.jpg",
     };
-	
-	public VentanaCliente() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(650, 430);
-		setTitle("DEUSTO HOTEL & SPA");
+    
+    public VentanaCliente(Container container) {
+        initialize(container);
+    }
+    
+	private void initialize(Container container) {
+        frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setSize(650, 430);
+		frame.setTitle("DEUSTO HOTEL & SPA");
 
-		// Centra la ventana en el centro de la pantlla
-		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
-						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
-		setVisible(true);
+//		// Centra la ventana en el centro de la pantlla
+//		frame.setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
+//						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
+		frame.setVisible(true);
 		
         //Panel Superior
-		add(pNorth, BorderLayout.NORTH);
+		frame.add(pNorth, BorderLayout.NORTH);
 		pNorth.add(pNorthDrch, BorderLayout.EAST);
 		pNorthDrch.add(bUsuario, BorderLayout.NORTH);
 
@@ -115,7 +122,7 @@ public class VentanaCliente extends JFrame{
 		pNorthDrch.setBackground(Color.LIGHT_GRAY);
 		
 		// Panel Izq
-		add(pSouth);
+		frame.add(pSouth);
 		pSouth.add(pIzq);
 		pIzq.setBorder(borde);
 
@@ -176,6 +183,8 @@ public class VentanaCliente extends JFrame{
 				JComponent source = (JComponent) e.getSource();
 				JPopupMenu popupMenu = menuUsuario.getPopupMenu();
 				popupMenu.show(source,0, source.getHeight());
+				
+				System.out.println(container.getRooms());
 			}
 		});
 		bReservar.addActionListener(new ActionListener() {
@@ -199,7 +208,10 @@ public class VentanaCliente extends JFrame{
 	        imageLabel.setIcon(new ImageIcon(image));
 	    }
 
+	public void mostrarVentana() {
+		frame.setVisible(true);
+	}
     public static void main(String[] args) {
-        new  VentanaCliente();
+        new  VentanaCliente(null);
     }
 }

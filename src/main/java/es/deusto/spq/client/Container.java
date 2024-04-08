@@ -97,6 +97,8 @@ public class Container {
 		Container container = new Container(hostname, port);
 		new VentanaRegistro(container);
 		new VentanaLogin(container);
+		new VentanaCliente(container);
+
 		//container.registerCustomer("example@example.com", "Hello", "World", "root1234", "Baker Street", 123456789);
 	}
 }
