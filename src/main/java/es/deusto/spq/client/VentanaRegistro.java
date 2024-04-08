@@ -1,9 +1,21 @@
 package es.deusto.spq.client;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 
 
 import javax.swing.*;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
+
+import es.deusto.spq.pojo.CustomerData;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +24,7 @@ public class VentanaRegistro {
     private JFrame frame;
     private JTextField nombreTextField, emailTextField, surnameTextField, addressTextField, phoneTextField;
     private JPasswordField contraseñaPasswordField;
+    private WebTarget webTarget;
 
     public VentanaRegistro() {
         frame = new JFrame("Ventana de Registro");
@@ -19,6 +32,8 @@ public class VentanaRegistro {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setBackground(Color.BLACK);
         frame.setLayout(new BorderLayout());
+        Client client = ClientBuilder.newClient();
+        webTarget = client.target("http://localhost:8080/api/customer");
 
         // Panel principal con GroupLayout
         JPanel panelRegistro = new JPanel();
@@ -26,6 +41,8 @@ public class VentanaRegistro {
         panelRegistro.setLayout(layout);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
+        
+        
 
         // Componentes de registro
         JLabel nombreLabel = new JLabel("Nombre:");
@@ -91,9 +108,31 @@ public class VentanaRegistro {
                 String apellido = surnameTextField.getText();
                 String contraseña = new String(contraseñaPasswordField.getPassword());
                 String dirección = addressTextField.getText();
-                int teléfono = Integer.parseInt(phoneTextField.getText());
-                // Aquí puedes hacer lo que necesites con los datos recopilados
-                // Por ejemplo, puedes llamar a un método de registro
+                String teléfonoStr = phoneTextField.getText();
+
+                // Validar que todos los campos estén llenos
+                if (nombre.isEmpty() || email.isEmpty() || apellido.isEmpty() || contraseña.isEmpty() || dirección.isEmpty() || teléfonoStr.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Por favor, complete todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Validar el formato del correo electrónico
+                if (!email.matches("\\b[\\w.%-]+@[-.\\w]+\\.[A-Za-z]{2,4}\\b")) {
+                    JOptionPane.showMessageDialog(frame, "El correo electrónico no es válido", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Validar que el teléfono sea un número válido
+                int teléfono;
+                try {
+                    teléfono = Integer.parseInt(teléfonoStr);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "El teléfono debe ser un número válido", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Llamar al método para registrar al cliente en el servidor
+                registerCustomer(email, nombre, apellido, contraseña, dirección, teléfono);
             }
         });
 
@@ -101,6 +140,26 @@ public class VentanaRegistro {
         frame.setVisible(true);
     }
 
+ // Método para enviar los datos del formulario al servidor
+    public void registerCustomer(String email, String name, String surname, String password, String address, int phone) {
+        WebTarget registerCustomerWebTarget = webTarget.path("registerCustomer");
+        Invocation.Builder invocationBuilder = registerCustomerWebTarget.request(MediaType.APPLICATION_JSON);
+
+        CustomerData customerData = new CustomerData();
+        customerData.setEmail(email);
+        customerData.setName(name);
+        customerData.setSurname(surname);
+        customerData.setPassword(password);
+        customerData.setAddress(address);
+        customerData.setPhone(phone);
+        Response response = invocationBuilder.post(Entity.entity(customerData, MediaType.APPLICATION_JSON));
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            JOptionPane.showMessageDialog(frame, "Error al registrar el cliente. Código: " + response.getStatus(), "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(frame, "Cliente registrado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
     public static void main(String[] args) {
         new VentanaRegistro();
     }
