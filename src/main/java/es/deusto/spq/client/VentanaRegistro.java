@@ -24,16 +24,13 @@ public class VentanaRegistro {
     private JFrame frame;
     private JTextField nombreTextField, emailTextField, surnameTextField, addressTextField, phoneTextField;
     private JPasswordField contraseñaPasswordField;
-    private WebTarget webTarget;
 
-    public VentanaRegistro() {
+    public VentanaRegistro(Container container) {
         frame = new JFrame("Ventana de Registro");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setBackground(Color.BLACK);
         frame.setLayout(new BorderLayout());
-        Client client = ClientBuilder.newClient();
-        webTarget = client.target("http://localhost:8080/api/customer");
 
         // Panel principal con GroupLayout
         JPanel panelRegistro = new JPanel();
@@ -132,35 +129,12 @@ public class VentanaRegistro {
                 }
 
                 // Llamar al método para registrar al cliente en el servidor
-                registerCustomer(email, nombre, apellido, contraseña, dirección, teléfono);
+                container.registerCustomer(email, nombre, apellido, contraseña, dirección, teléfono);
             }
         });
 
         frame.add(panelRegistro, BorderLayout.CENTER);
         frame.setVisible(true);
     }
-
- // Método para enviar los datos del formulario al servidor
-    public void registerCustomer(String email, String name, String surname, String password, String address, int phone) {
-        WebTarget registerCustomerWebTarget = webTarget.path("registerCustomer");
-        Invocation.Builder invocationBuilder = registerCustomerWebTarget.request(MediaType.APPLICATION_JSON);
-
-        CustomerData customerData = new CustomerData();
-        customerData.setEmail(email);
-        customerData.setName(name);
-        customerData.setSurname(surname);
-        customerData.setPassword(password);
-        customerData.setAddress(address);
-        customerData.setPhone(phone);
-        Response response = invocationBuilder.post(Entity.entity(customerData, MediaType.APPLICATION_JSON));
-        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-            JOptionPane.showMessageDialog(frame, "Error al registrar el cliente. Código: " + response.getStatus(), "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(frame, "Cliente registrado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
     
-    public static void main(String[] args) {
-        new VentanaRegistro();
-    }
 }

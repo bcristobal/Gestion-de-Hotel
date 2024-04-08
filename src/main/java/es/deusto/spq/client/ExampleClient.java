@@ -103,6 +103,6 @@ public class ExampleClient {
 		ExampleClient exampleClient = new ExampleClient(hostname, port);
 		exampleClient.registerUser(USER, PASSWORD);
 		exampleClient.sayMessage(USER, PASSWORD, "This is a test!...");
-		exampleClient.registerCustomer("example@example.com", "Hello", "World", "root1234", "Baker Street", 123456789);
+		//exampleClient.registerCustomer("example@example.com", "Hello", "World", "root1234", "Baker Street", 123456789);
 	}
 }
