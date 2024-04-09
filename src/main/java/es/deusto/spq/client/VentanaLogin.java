@@ -57,7 +57,8 @@ public class VentanaLogin {
 
 
 
-                // TODO: Handle login
+                
+                @SuppressWarnings("deprecation")
                 Boolean isLoged =container.loginCustomer(textField.getText(), passwordField.getText());
                 if (isLoged) {
                     new VentanaCliente(container);

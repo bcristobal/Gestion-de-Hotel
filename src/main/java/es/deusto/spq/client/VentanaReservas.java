@@ -11,8 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
-import es.deusto.spq.server.jdo.Booking;
-
 public class VentanaReservas extends JFrame {
     private static final long serialVersionUID = 1L;
 

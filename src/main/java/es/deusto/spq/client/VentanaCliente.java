@@ -135,7 +135,6 @@ public class VentanaCliente extends JFrame{
 		
 		listModel = new DefaultListModel<>();
 		
-		//TODO: Prueba
 		for (RoomData room : container.getRooms()) {
 			listModel.addElement(room.getDescription());
 		}

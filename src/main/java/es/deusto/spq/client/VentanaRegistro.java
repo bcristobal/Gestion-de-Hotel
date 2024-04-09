@@ -1,21 +1,6 @@
 package es.deusto.spq.client;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-
-
 import javax.swing.*;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
-
-import es.deusto.spq.pojo.CustomerData;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
