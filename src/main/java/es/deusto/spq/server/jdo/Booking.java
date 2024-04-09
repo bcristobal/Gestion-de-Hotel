@@ -16,11 +16,12 @@ public class Booking {
     int days = 0;
     // Posible añadir más atributos como el historial de reservas, etc.
 
-    public Booking(int id, Room room, Customer customer, Date checkIn, int days) {
+    @SuppressWarnings("deprecation")
+    public Booking(int id, Room room, Customer customer, String string, int days) {
         this.id = id;
         this.room = room;
         this.customer = customer;
-        this.checkIn = checkIn;
+        this.checkIn = new Date(Date.parse(string));
         this.days = days;
     }
 

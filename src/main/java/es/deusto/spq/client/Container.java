@@ -1,5 +1,6 @@
 package es.deusto.spq.client;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.ws.rs.client.Client;
@@ -12,12 +13,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import es.deusto.spq.pojo.BookingData;
 import es.deusto.spq.pojo.CustomerData;
-import es.deusto.spq.pojo.DirectMessage;
-import es.deusto.spq.pojo.MessageData;
 import es.deusto.spq.pojo.RoomData;
-import es.deusto.spq.pojo.UserData;
-import es.deusto.spq.server.jdo.Customer;
+import es.deusto.spq.server.jdo.Booking;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -72,6 +71,25 @@ public class Container {
 			}
 		}
 
+		public boolean bookRoom(int roomNumber, Date checkIn, int days) {
+			WebTarget bookRoomWebTarget = webTarget.path("bookRoom");
+			Invocation.Builder invocationBuilder = bookRoomWebTarget.request(MediaType.APPLICATION_JSON);
+			
+			BookingData bookingData = new BookingData();
+			bookingData.setRoom(roomNumber);
+			bookingData.setCustomer(email);
+			bookingData.setCheckIn(checkIn);
+			bookingData.setDays(days);
+			Response response = invocationBuilder.post(Entity.entity(bookingData, MediaType.APPLICATION_JSON));
+			if (response.getStatus() != Status.OK.getStatusCode()) {
+				logger.error("Error connecting with the server. Code: {}", response.getStatus());
+				return false;
+			} else {
+				logger.info("Room correctly booked");
+				return true;
+			}
+		}
+
 		public List<RoomData> getRooms() {
 			WebTarget getRoomsWebTarget = webTarget.path("getRooms");
 			Invocation.Builder invocationBuilder = getRoomsWebTarget.request(MediaType.APPLICATION_JSON);
@@ -98,5 +116,6 @@ public class Container {
 		new VentanaRegistro(container);
 		new VentanaLogin(container);
 		//container.registerCustomer("example@example.com", "Hello", "World", "root1234", "Baker Street", 123456789);
+		
 	}
 }

@@ -33,6 +33,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import es.deusto.spq.pojo.RoomData;
+
 public class VentanaCliente extends JFrame{
 	/**
 	 * 
@@ -78,7 +80,7 @@ public class VentanaCliente extends JFrame{
             "src/main/resources/hab3.jpg",
     };
 	
-	public VentanaCliente() {
+	public VentanaCliente(Container container) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(650, 430);
 		setTitle("DEUSTO HOTEL & SPA");
@@ -132,9 +134,12 @@ public class VentanaCliente extends JFrame{
 		pDrcha.setBorder(borde);
 		
 		listModel = new DefaultListModel<>();
-        for (int i = 0; i < imagePaths.length; i++) {
-            listModel.addElement("hab " + (i + 1));
-        }
+		
+		//TODO: Prueba
+		for (RoomData room : container.getRooms()) {
+			listModel.addElement(room.getDescription());
+		}
+
        
         imageList = new JList<>(listModel);
         imageList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -199,7 +204,5 @@ public class VentanaCliente extends JFrame{
 	    }
 
 	
-    public static void main(String[] args) {
-        new  VentanaCliente();
-    }
+    
 }

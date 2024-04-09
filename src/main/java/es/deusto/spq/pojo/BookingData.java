@@ -2,14 +2,11 @@ package es.deusto.spq.pojo;
 
 import java.sql.Date;
 
-import es.deusto.spq.server.jdo.Customer;
-import es.deusto.spq.server.jdo.Room;
-
 public class BookingData {
 
 	private int id;
-	private Room room;
-	private Customer customer;
+	private int roomNumber;
+	private String customerEmail;
 	private Date checkIn;
 	private int days;
 	
@@ -25,20 +22,20 @@ public class BookingData {
 		this.id = id;
 	}
 
-	public Room getRoom() {
-		return room;
+	public int getRoom() {
+		return roomNumber;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRoom(int roomNumber) {
+		this.roomNumber = roomNumber;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public String getCustomer() {
+		return customerEmail;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomer(String customerEmail) {
+		this.customerEmail = customerEmail;
 	}
 
 	public Date getCheckIn() {
@@ -59,7 +56,7 @@ public class BookingData {
 
 	@Override
 	public String toString() {
-		return "BookingData [id=" + id + ", room=" + room + ", days=" + days + "]";
+		return "BookingData [id=" + id + ", room=" + roomNumber + ", days=" + days + "]";
 	}
 	
 }
