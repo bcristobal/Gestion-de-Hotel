@@ -11,11 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
-import es.deusto.spq.pojo.RoomData;
-import es.deusto.spq.server.jdo.Booking;
-import es.deusto.spq.server.jdo.Customer;
-import es.deusto.spq.server.jdo.Room;
-
 public class VentanaReservas extends JFrame {
     private static final long serialVersionUID = 1L;
 
@@ -26,7 +21,7 @@ public class VentanaReservas extends JFrame {
     public VentanaReservas() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 300);
-        setTitle("DEUSTO HOTEL & SPA");
+        setTitle("Administrar Reservas");
 
         setLocation((int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),
                 (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
