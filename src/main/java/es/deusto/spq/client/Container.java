@@ -111,8 +111,8 @@ public class Container {
 		String port = args[1];
 
 		Container container = new Container(hostname, port);
-		new VentanaRegistro(container);
 		new VentanaLogin(container);
+		new VentanaRegistro(container);
 		//container.registerCustomer("example@example.com", "Hello", "World", "root1234", "Baker Street", 123456789);
 		
 	}

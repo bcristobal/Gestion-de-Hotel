@@ -54,19 +54,17 @@ public class VentanaLogin {
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-
-
-
-                
                 @SuppressWarnings("deprecation")
                 Boolean isLoged =container.loginCustomer(textField.getText(), passwordField.getText());
                 if (isLoged) {
                     new VentanaCliente(container);
-                }
-
-                
+                    frame.setVisible(false);
+                }     
             }
         });
+        
+        //TODO: Add a button to register a new user
+
         frame.getContentPane().add(btnLogin);
 
         // Make the frame visible

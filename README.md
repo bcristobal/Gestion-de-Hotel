@@ -11,12 +11,12 @@ Make sure that the database was correctly configured. Use the contents of the fi
 
       mysql –uroot -p < sql/create-hotels.sql
 
-Use the contents of the file *seed-rooms.sql* to generate some rooms. For example:
-      mysql –uroot -p < sql/seed-rooms.sql
-
 Run the following command to create database schema for this sample.
 
       mvn datanucleus:schema-create
+
+Use the contents of the file *seed-rooms.sql* to generate some rooms. For example:
+      mysql –uroot -p < sql/seed-rooms.sql
 
 To launch the server run the command
 
