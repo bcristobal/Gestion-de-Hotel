@@ -16,8 +16,6 @@ import javax.ws.rs.core.Response.Status;
 import es.deusto.spq.pojo.BookingData;
 import es.deusto.spq.pojo.CustomerData;
 import es.deusto.spq.pojo.RoomData;
-import es.deusto.spq.server.jdo.Booking;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -65,7 +63,7 @@ public class Container {
 				logger.error("Error connecting with the server. Code: {}, Endpoint: {}", response.getStatus(), loginCustomerWebTarget.getUri());
 				return false;
 			} else {
-				this.email = email;
+				Container.email = email;
 				logger.info("Customer correctly logged in");
 				return true;
 			}
