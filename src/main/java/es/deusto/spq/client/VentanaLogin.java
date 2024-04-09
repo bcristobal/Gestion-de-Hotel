@@ -53,17 +53,12 @@ public class VentanaLogin {
         btnLogin.setBounds(152, 171, 130, 29); // Modified
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
-
-
-
-                // TODO: Handle login
-                Boolean isLoged =container.loginCustomer(textField.getText(), passwordField.getText());
-                if (isLoged) {
+                // Handle login
+                boolean isLoggedIn = container.loginCustomer(textField.getText(), String.valueOf(passwordField.getPassword()));
+                if (isLoggedIn) {
                     new VentanaCliente(container);
+                    frame.dispose(); 
                 }
-
-                
             }
         });
         frame.getContentPane().add(btnLogin);
