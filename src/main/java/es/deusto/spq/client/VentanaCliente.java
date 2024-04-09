@@ -2,6 +2,8 @@ package es.deusto.spq.client;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Date;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.border.*;
@@ -141,10 +143,14 @@ public class VentanaCliente {
         bReservar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new VentanaReservar();
+                // Obtener las fechas seleccionadas
+            	java.sql.Date fechaEntrada = new java.sql.Date(((java.util.Date) spinnerFechaEntrada.getValue()).getTime());
+            	java.sql.Date fechaSalida = new java.sql.Date(((java.util.Date) spinnerFechaSalida.getValue()).getTime());
+                // Abrir la ventana VentanaReservar con las fechas seleccionadas
+                new VentanaReservar(fechaEntrada, fechaSalida);
             }
         });
-
+        
         menuItemReservas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -169,10 +175,14 @@ public class VentanaCliente {
                     int selectedIndex = imageList.getSelectedIndex();
                     if (selectedIndex != -1) {
                         loadImage(imagePaths[selectedIndex]);
+                        // Obtener el nombre de la habitación seleccionada
+                        String habitacionSeleccionada = listModel.getElementAt(selectedIndex);
+                        // Actualizar el título de la ventana VentanaReservar
+//                        new VentanaReservar(habitacionSeleccionada);
                     }
                 }
             }
-        });	
+        });
     }
 
     // Método para cargar una imagen en el panel de la derecha
