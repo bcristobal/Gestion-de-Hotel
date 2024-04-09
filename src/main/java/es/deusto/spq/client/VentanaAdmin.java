@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 
 public class VentanaAdmin {
 
+
+    private Container container;
     private JFrame frame;
 
     private JPanel pNorth = new JPanel(new BorderLayout());
@@ -21,6 +23,7 @@ public class VentanaAdmin {
     JButton bAdminHabitaciones = new JButton("Administrar Habitaciones");
 
     public VentanaAdmin() {
+        this.container = container;
         initialize();
     }
 
@@ -53,6 +56,18 @@ public class VentanaAdmin {
         pAdminUsuarios.add(bAdminUsuarios);
         pAdminReservas.add(bAdminReservas);
         pAdminHabitaciones.add(bAdminHabitaciones);
+
+        bCerrarSesion.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Cerrar la ventana actual
+                frame.dispose();
+                // Mostrar la ventana de login
+                VentanaLogin ventanaLogin = new VentanaLogin(container);
+                ventanaLogin.mostrarVentana();
+            }
+        });
 
         bAdminUsuarios.addActionListener(new ActionListener() {
 			
