@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -35,112 +36,98 @@ import javax.swing.event.ListSelectionListener;
 
 import es.deusto.spq.pojo.RoomData;
 
-public class VentanaCliente extends JFrame{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class VentanaCliente extends JFrame {
+    private static final long serialVersionUID = 1L;
 
-	private JPanel pNorth = new JPanel(new BorderLayout());
-	private JPanel pNorthDrch = new JPanel(new BorderLayout());
-	private JPanel pSouth = new JPanel(new GridLayout());
-	
-	private JPanel pIzq = new JPanel(new GridLayout(4, 1));
-	private JPanel pDrcha = new JPanel(new BorderLayout());
-	
-	private JMenuBar menuBar = new JMenuBar();
-	private JMenu menuUsuario  = new JMenu("Usuario");
-	private JMenuItem menuItemPerfil = new JMenuItem("Perfil");
-	private JMenuItem menuItemReservas = new JMenuItem("Reservas");
-	private JMenuItem menuItemCerrarSesion = new JMenuItem("Cerrar sesión");
-	private JButton bUsuario = new JButton("");
-	
-	//MenuIzq
-	private JButton bReservar = new JButton("Reservar");
-	  int minValue = 0;
-      int maxValue = 1000;
-      int initialValue = 500;
-	private JSlider SliderPrecio = new JSlider(minValue, maxValue, initialValue);
-    private JLabel precioLabel = new JLabel("Precio/noche: " + initialValue); // Contador de precio
-    private String[] opcionesHabitaciones = {"Habitación Individual", "Habitación Doble", "Habitación Suite"};
+    private JPanel pNorth = new JPanel(new BorderLayout());
+    private JPanel pNorthDrch = new JPanel(new BorderLayout());
+    private JPanel pSouth = new JPanel(new GridLayout());
+
+    private JPanel pIzq = new JPanel(new GridLayout(4, 1));
+    private JPanel pDrcha = new JPanel(new BorderLayout());
+
+    private JMenuBar menuBar = new JMenuBar();
+    private JMenu menuUsuario = new JMenu("Usuario");
+    private JMenuItem menuItemPerfil = new JMenuItem("Perfil");
+    private JMenuItem menuItemReservas = new JMenuItem("Reservas");
+    private JMenuItem menuItemCerrarSesion = new JMenuItem("Cerrar sesión");
+    private JButton bUsuario = new JButton("");
+
+    // MenuIzq
+    private JButton bReservar = new JButton("Reservar");
+    int minValue = 0;
+    int maxValue = 1000;
+    int initialValue = 500;
+    private JSlider SliderPrecio = new JSlider(minValue, maxValue, initialValue);
+    private JLabel precioLabel = new JLabel("Precio/noche: " + initialValue);
+    private String[] opcionesHabitaciones = { "Seleccionar habitación", "Habitación Individual", "Habitación Doble",
+            "Habitación Suite" };
     private JComboBox<String> comboBoxHabitaciones = new JComboBox<>(opcionesHabitaciones);
-    
+
     private Border borde = BorderFactory.createLineBorder(Color.BLACK, 1);
-	private ImageIcon imgUsuario = new ImageIcon("src/main/resources/usuario.png");
-	
-	//ListaHabitaciones
-    private DefaultListModel<String> listModel;
-    private JList<String> imageList;
+    private ImageIcon imgUsuario = new ImageIcon("src/main/resources/usuario.png");
+
+    // ListaHabitaciones
+    private DefaultListModel<RoomData> listModel;
+    private JList<RoomData> imageList;
     private JPanel imagePanel;
     private JLabel imageLabel;
 
-    private String[] imagePaths = {
-            "src/main/resources/hab1.jpg",
-            "src/main/resources/hab2.jpg",
-            "src/main/resources/hab3.jpg",
-    };
-	
-	public VentanaCliente(Container container) {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(650, 430);
-		setTitle("DEUSTO HOTEL & SPA");
+    private String[] imagePaths = { "src/main/resources/hab1.jpg", "src/main/resources/hab2.jpg",
+            "src/main/resources/hab3.jpg","src/main/resources/hab3.jpg","src/main/resources/hab3.jpg","src/main/resources/hab3.jpg" };
 
-		// Centra la ventana en el centro de la pantlla
-		setLocation(	(int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),  
-						(int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
-		setVisible(true);
-		
-        //Panel Superior
-		add(pNorth, BorderLayout.NORTH);
-		pNorth.add(pNorthDrch, BorderLayout.EAST);
-		pNorthDrch.add(bUsuario, BorderLayout.NORTH);
+    public VentanaCliente(Container container) {
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(650, 430);
+        setTitle("DEUSTO HOTEL & SPA");
 
-		menuBar.setVisible(false);
-		menuBar.add(menuUsuario);
-		menuUsuario.setMnemonic(KeyEvent.VK_F);
-		menuUsuario.add(menuItemPerfil);
-		menuItemPerfil.setMnemonic(KeyEvent.VK_S);
-		menuUsuario.addSeparator();
-		menuUsuario.add(menuItemReservas);
-		menuItemReservas.setMnemonic(KeyEvent.VK_S);
-		menuUsuario.addSeparator();
-		menuUsuario.add(menuItemCerrarSesion);
-		menuItemCerrarSesion.setMnemonic(KeyEvent.VK_S);
-		bUsuario.setIcon(new ImageIcon(imgUsuario.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+        setLocation((int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),
+                (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
+        setVisible(true);
 
-		bUsuario.setBorder(null);
-		
-		pNorthDrch.setBorder(new EmptyBorder(10,10,10,10));
-		pNorth.setBackground(Color.LIGHT_GRAY);
-		pNorthDrch.setBackground(Color.LIGHT_GRAY);
-		
-		// Panel Izq
-		add(pSouth);
-		pSouth.add(pIzq);
-		pIzq.setBorder(borde);
+        add(pNorth, BorderLayout.NORTH);
+        pNorth.add(pNorthDrch, BorderLayout.EAST);
+        pNorthDrch.add(bUsuario, BorderLayout.NORTH);
 
-		pIzq.add(comboBoxHabitaciones);
-        // Configurar la apariencia del slider
-		SliderPrecio.setMajorTickSpacing(200); // Espaciado principal entre los ticks
-		SliderPrecio.setMinorTickSpacing(100); // Espaciado secundario entre los ticks
-		SliderPrecio.setPaintTicks(true); // Mostrar los ticks
-		SliderPrecio.setPaintLabels(true); // Mostrar las etiquetas de los ticks
-        pIzq.add(precioLabel); // Agregar el contador de precio
-		pIzq.add(SliderPrecio);
-		pIzq.add(bReservar);
-		
-		// Panel Derecho
-		pSouth.add(pDrcha);
-		pDrcha.setBorder(borde);
-		
-		listModel = new DefaultListModel<>();
-		
-		for (RoomData room : container.getRooms()) {
-			listModel.addElement(room.getDescription());
-		}
+        menuBar.setVisible(false);
+        menuBar.add(menuUsuario);
+        menuUsuario.setMnemonic(KeyEvent.VK_F);
+        menuUsuario.add(menuItemPerfil);
+        menuItemPerfil.setMnemonic(KeyEvent.VK_S);
+        menuUsuario.addSeparator();
+        menuUsuario.add(menuItemReservas);
+        menuItemReservas.setMnemonic(KeyEvent.VK_S);
+        menuUsuario.addSeparator();
+        menuUsuario.add(menuItemCerrarSesion);
+        menuItemCerrarSesion.setMnemonic(KeyEvent.VK_S);
+        bUsuario.setIcon(new ImageIcon(imgUsuario.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
 
-       
+        bUsuario.setBorder(null);
+
+        pNorthDrch.setBorder(new EmptyBorder(10, 10, 10, 10));
+        pNorth.setBackground(Color.LIGHT_GRAY);
+        pNorthDrch.setBackground(Color.LIGHT_GRAY);
+
+        add(pSouth);
+        pSouth.add(pIzq);
+        pIzq.setBorder(borde);
+
+        pIzq.add(comboBoxHabitaciones);
+        SliderPrecio.setMajorTickSpacing(200);
+        SliderPrecio.setMinorTickSpacing(100);
+        SliderPrecio.setPaintTicks(true);
+        SliderPrecio.setPaintLabels(true);
+        pIzq.add(precioLabel);
+        pIzq.add(SliderPrecio);
+        pIzq.add(bReservar);
+
+        pSouth.add(pDrcha);
+        pDrcha.setBorder(borde);
+
+        listModel = new DefaultListModel<>();
+
         imageList = new JList<>(listModel);
+        imageList.setCellRenderer(new RoomListRenderer());
         imageList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         imageList.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -162,7 +149,6 @@ public class VentanaCliente extends JFrame{
         pDrcha.add(scrollPane, BorderLayout.NORTH);
         pDrcha.add(imagePanel);
 
-        // Listener para el slider que actualiza el contador de precio
         SliderPrecio.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -170,17 +156,42 @@ public class VentanaCliente extends JFrame{
                 precioLabel.setText("Precio: " + value);
             }
         });
-        
-		bUsuario.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JComponent source = (JComponent) e.getSource();
-				JPopupMenu popupMenu = menuUsuario.getPopupMenu();
-				popupMenu.show(source,0, source.getHeight());
-			}
-		});
-		bReservar.addActionListener(new ActionListener() {
+
+        comboBoxHabitaciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedOption = (String) comboBoxHabitaciones.getSelectedItem();
+                listModel.clear();
+                if (!selectedOption.equals("Seleccionar tipo habitación")) {
+                    if (selectedOption.equals("Habitación Individual")) {
+                        for (int i = 0; i < 2 && i < imagePaths.length; i++) {
+                            listModel.addElement(container.getRooms().get(i));
+                        }
+                    } else if (selectedOption.equals("Habitación Doble")) {
+                        for (int i = 2; i < 4 && i < imagePaths.length; i++) {
+                            listModel.addElement(container.getRooms().get(i));
+                        }
+                    } else if (selectedOption.equals("Habitación Suite")) {
+						int totalRooms = container.getRooms().size();
+						if (totalRooms >= 5) {
+							listModel.addElement(container.getRooms().get(4));
+						}
+					}
+					
+                }
+            }
+        });
+
+        bUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JComponent source = (JComponent) e.getSource();
+                JPopupMenu popupMenu = menuUsuario.getPopupMenu();
+                popupMenu.show(source, 0, source.getHeight());
+            }
+        });
+
+bReservar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -188,20 +199,35 @@ public class VentanaCliente extends JFrame{
 				new VentanaReservar();
 			}
 		});
-		menuItemReservas.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new VentanaReservas();
-			}
-		});
-	}
-	 private void loadImage(String path) {
-	        ImageIcon imageIcon = new ImageIcon(path);
-	        Image image = imageIcon.getImage().getScaledInstance(300, 180, Image.SCALE_SMOOTH);
-	        imageLabel.setIcon(new ImageIcon(image));
-	    }
 
-	
-    
+        menuItemReservas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VentanaReservas();
+            }
+        });
+    }
+
+    private void loadImage(String path) {
+        ImageIcon imageIcon = new ImageIcon(path);
+        Image image = imageIcon.getImage().getScaledInstance(300, 180, Image.SCALE_SMOOTH);
+        imageLabel.setIcon(new ImageIcon(image));
+    }
+}
+
+class RoomListRenderer extends JLabel implements ListCellRenderer<RoomData> {
+    private static final long serialVersionUID = 1L;
+
+    public RoomListRenderer() {
+        setOpaque(true);
+    }
+
+    @Override
+    public java.awt.Component getListCellRendererComponent(JList<? extends RoomData> list, RoomData room, int index,
+            boolean isSelected, boolean cellHasFocus) {
+        setText(room.getDescription());
+        setBackground(isSelected ? Color.LIGHT_GRAY : Color.WHITE);
+        setForeground(isSelected ? Color.BLACK : Color.BLACK);
+        return this;
+    }
 }
