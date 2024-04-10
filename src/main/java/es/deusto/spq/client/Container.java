@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import es.deusto.spq.pojo.AdminData;
 import es.deusto.spq.pojo.BookingData;
 import es.deusto.spq.pojo.CustomerData;
 import es.deusto.spq.pojo.RoomData;
@@ -66,6 +67,23 @@ public class Container {
 			} else {
 				Container.email = email;
 				logger.info("Customer correctly logged in");
+				return true;
+			}
+		}
+
+		public boolean loginAdmin (String userName, String password) {
+			WebTarget loginAdminWebTarget = webTarget.path("loginAdmin");
+			Invocation.Builder invocationBuilder = loginAdminWebTarget.request(MediaType.APPLICATION_JSON);
+			
+			AdminData adminData = new AdminData();
+			adminData.setUserName(userName);
+			adminData.setPassword(password);
+			Response response = invocationBuilder.post(Entity.entity(adminData, MediaType.APPLICATION_JSON));
+			if (response.getStatus() != Status.OK.getStatusCode()) {
+				logger.error("Error connecting with the server. Code: {}", response.getStatus());
+				return false;
+			} else {
+				logger.info("Admin correctly logged in");
 				return true;
 			}
 		}
