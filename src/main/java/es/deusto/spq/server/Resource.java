@@ -116,6 +116,8 @@ public class Resource {
 		}
 	}
 
+	//TODO: Implement loginAdmin
+
 	@POST
 	@Path("/bookRoom")
 	public Response bookRoom (BookingData bookingData) {

@@ -8,12 +8,13 @@ import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VentanaLogin {
+public class VentanaLoginAdmin {
+    
     private JFrame frame;
     private JTextField textField;
     private JPasswordField passwordField;
 
-    public VentanaLogin(Container container) {
+    public VentanaLoginAdmin (Container container) {
         initialize(container);
     }
 
@@ -55,13 +56,14 @@ public class VentanaLogin {
             public void actionPerformed(ActionEvent e) {
 
                 @SuppressWarnings("deprecation")
+                //TODO: Cambiar el metodo loginCustomer por loginAdmin
                 Boolean isLoged =container.loginCustomer(textField.getText(), passwordField.getText());
                 if (isLoged) {
                     new VentanaCliente(container);
                     frame.setVisible(false);
                 }     
             }
-        }); 
+        });
 
         frame.getContentPane().add(btnLogin);
 
