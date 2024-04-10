@@ -21,7 +21,7 @@ public class VentanaReservas extends JFrame {
     public VentanaReservas() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 300);
-        setTitle("DEUSTO HOTEL & SPA");
+        setTitle("Administrar Reservas");
 
         setLocation((int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()) / 2),
                 (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
@@ -41,7 +41,6 @@ public class VentanaReservas extends JFrame {
 		        int index = listaReservas.getSelectedIndex();
 		        if (index != -1) {
 		            modeloReservas.remove(index);
-		            
 		        }	
 			}
 		});

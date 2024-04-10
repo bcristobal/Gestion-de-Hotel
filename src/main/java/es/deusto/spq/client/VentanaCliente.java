@@ -129,18 +129,6 @@ public class VentanaCliente extends JFrame {
         imageList = new JList<>(listModel);
         imageList.setCellRenderer(new RoomListRenderer());
         imageList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        imageList.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int selectedIndex = imageList.getSelectedIndex();
-                    if (selectedIndex != -1) {
-                        loadImage(imagePaths[selectedIndex]);
-                    }
-                }
-            }
-        });
-
         imagePanel = new JPanel();
         imageLabel = new JLabel();
         imagePanel.add(imageLabel);
