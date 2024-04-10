@@ -1,4 +1,5 @@
 -- Insertar datos de ejemplo
+use hotelsdb;
 INSERT INTO room VALUES (100, 2, 'Habitación para dos personas', 33.33, 'Doble');
 INSERT INTO room VALUES (101, 1, 'Habitación individual', 25.00, 'Individual');
 INSERT INTO room VALUES (102, 3, 'Suite familiar', 70.50, 'Suite');
