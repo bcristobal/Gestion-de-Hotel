@@ -7,6 +7,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 
 public class VentanaLogin {
     private JFrame frame;
@@ -59,6 +60,9 @@ public class VentanaLogin {
                 if (isLoged) {
                     new VentanaCliente(container);
                     frame.setVisible(false);
+		            @SuppressWarnings("deprecation")
+                    Date date = new Date(2022, 1, 1);
+		            container.bookRoom(100, date, 3);
                 }     
             }
         });

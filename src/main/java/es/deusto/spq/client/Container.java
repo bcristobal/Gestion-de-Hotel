@@ -23,6 +23,7 @@ public class Container {
     protected static final Logger logger = LogManager.getLogger();
 
 	private static String email = null;
+	private static int bookId = 0;
 
     private Client client;
 	private WebTarget webTarget;
@@ -74,6 +75,7 @@ public class Container {
 			Invocation.Builder invocationBuilder = bookRoomWebTarget.request(MediaType.APPLICATION_JSON);
 			
 			BookingData bookingData = new BookingData();
+			bookingData.setId(bookId++);
 			bookingData.setRoom(roomNumber);
 			bookingData.setCustomer(email);
 			bookingData.setCheckIn(checkIn);
@@ -114,6 +116,7 @@ public class Container {
 		new VentanaLogin(container);
 		new VentanaRegistro(container);
 		//container.registerCustomer("example@example.com", "Hello", "World", "root1234", "Baker Street", 123456789);
+		
 		
 	}
 }
