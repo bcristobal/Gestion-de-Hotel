@@ -31,9 +31,6 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import es.deusto.spq.pojo.RoomData;
 
 public class VentanaCliente extends JFrame {
@@ -183,8 +180,8 @@ bReservar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				new VentanaReservar();
+				// TODO Add logic to open VentanaReservar
+				//new VentanaReservar();
 			}
 		});
 
@@ -201,6 +198,7 @@ bReservar.addActionListener(new ActionListener() {
         Image image = imageIcon.getImage().getScaledInstance(300, 180, Image.SCALE_SMOOTH);
         imageLabel.setIcon(new ImageIcon(image));
     }
+    
 }
 
 class RoomListRenderer extends JLabel implements ListCellRenderer<RoomData> {
