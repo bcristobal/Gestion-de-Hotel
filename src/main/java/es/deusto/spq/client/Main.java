@@ -37,7 +37,7 @@ public class Main {
         registerButton.addActionListener(e -> {
             // Coloca aquí el código para abrir la ventana de registro
             // Por ejemplo:
-            new VentanaRegistro(container);
+            // new VentanaRegistro().mostrarVentana();
         });
         frame.getContentPane().add(registerButton);
 
@@ -66,5 +66,5 @@ public class Main {
             }
         });
     }
-    
 }
+
