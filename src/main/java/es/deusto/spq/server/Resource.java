@@ -118,7 +118,6 @@ public class Resource {
 		}
 	}
 
-	//TODO: Implement loginAdmin
 	@POST
 	@Path("/loginAdmin")
 	public Response loginAmin (AdminData adminData) {
