@@ -162,7 +162,7 @@ public class VentanaCliente extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String selectedOption = (String) comboBoxHabitaciones.getSelectedItem();
                 listModel.clear();
-                if (!selectedOption.equals("Seleccionar habitación")) {
+                if (!selectedOption.equals("Seleccionar tipo habitación")) {
                     if (selectedOption.equals("Habitación Individual")) {
                         for (int i = 0; i < 2 && i < imagePaths.length; i++) {
                             listModel.addElement(container.getRooms().get(i));
