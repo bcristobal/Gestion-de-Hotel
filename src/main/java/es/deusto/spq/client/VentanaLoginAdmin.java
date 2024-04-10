@@ -56,10 +56,9 @@ public class VentanaLoginAdmin {
             public void actionPerformed(ActionEvent e) {
 
                 @SuppressWarnings("deprecation")
-                //TODO: Cambiar el metodo loginCustomer por loginAdmin
-                Boolean isLoged =container.loginCustomer(textField.getText(), passwordField.getText());
+                Boolean isLoged = container.loginAdmin(textField.getText(), passwordField.getText());
                 if (isLoged) {
-                    new VentanaCliente(container);
+                    //TODO: Open admin window
                     frame.setVisible(false);
                 }     
             }
