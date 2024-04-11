@@ -1,6 +1,6 @@
 package es.deusto.spq.client;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.client.Client;
@@ -24,7 +24,6 @@ public class Container {
     protected static final Logger logger = LogManager.getLogger();
 
 	private static String email = null;
-	private static int bookId = 0;
 
     private Client client;
 	private WebTarget webTarget;
@@ -93,7 +92,6 @@ public class Container {
 			Invocation.Builder invocationBuilder = bookRoomWebTarget.request(MediaType.APPLICATION_JSON);
 			
 			BookingData bookingData = new BookingData();
-			bookingData.setId(bookId++);
 			bookingData.setRoom(roomNumber);
 			bookingData.setCustomer(email);
 			bookingData.setCheckIn(checkIn);

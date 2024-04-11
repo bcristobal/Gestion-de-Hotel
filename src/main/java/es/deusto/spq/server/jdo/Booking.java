@@ -1,6 +1,6 @@
 package es.deusto.spq.server.jdo;
 
-import java.sql.Date;
+import java.util.Date;
 import javax.jdo.annotations.ForeignKey;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.PrimaryKey;
@@ -19,12 +19,11 @@ public class Booking {
     int days = 0;
     // Posible añadir más atributos como el historial de reservas, etc.
 
-    @SuppressWarnings("deprecation")
-    public Booking(int id, Room room, Customer customer, String string, int days) {
+    public Booking(int id, Room room, Customer customer, Date date, int days) {
         this.id = id;
         this.room = room;
         this.customer = customer;
-        this.checkIn = new Date(Date.parse(string));
+        this.checkIn = date;
         this.days = days;
     }
 

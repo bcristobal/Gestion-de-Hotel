@@ -34,6 +34,8 @@ public class Resource {
 
 	protected static final Logger logger = LogManager.getLogger();
 
+	private static int bookId = 0;
+
 	private PersistenceManager pm=null;
 	private Transaction tx=null;
 
@@ -161,6 +163,7 @@ public class Resource {
 	@POST
 	@Path("/bookRoom")
 	public Response bookRoom (BookingData bookingData) {
+		bookingData.setId(bookId++);
 		try
 		{	
 			tx.begin();
@@ -185,7 +188,7 @@ public class Resource {
 				if (customer != null) { // this customer already exists
 					logger.info("This customer already exists: {}", customer);
 					logger.info("Creating booking: {}", bookingData);
-					Booking booking = new Booking(bookingData.getId(), room, customer, bookingData.getCheckIn().toString(), bookingData.getDays());
+					Booking booking = new Booking(bookingData.getId(), room, customer, bookingData.getCheckIn(), bookingData.getDays());
 					pm.makePersistent(booking);					 
 					logger.info("Booking created: {}", booking);
 				} else { // this customer does not exist

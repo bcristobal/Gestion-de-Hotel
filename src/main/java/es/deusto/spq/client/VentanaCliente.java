@@ -180,8 +180,9 @@ bReservar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Add logic to open VentanaReservar
-				//new VentanaReservar();
+                RoomData room = imageList.getSelectedValue();
+				
+				new VentanaReservar(container, room);
 			}
 		});
 
