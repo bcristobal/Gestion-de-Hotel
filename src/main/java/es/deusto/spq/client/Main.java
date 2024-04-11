@@ -2,8 +2,6 @@ package es.deusto.spq.client;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Main {
     private JFrame frame;
@@ -28,6 +26,7 @@ public class Main {
             // Coloca aquí el código para abrir la ventana de inicio de sesión como usuario
             
             new VentanaLogin(container);
+            frame.dispose();
         });
         frame.getContentPane().add(loginButton);
 
@@ -38,6 +37,7 @@ public class Main {
             // Coloca aquí el código para abrir la ventana de registro
             // Por ejemplo:
             new VentanaRegistro(container);
+            frame.dispose();
         });
         frame.getContentPane().add(registerButton);
 
@@ -48,6 +48,7 @@ public class Main {
             // Abre la ventana de inicio de sesión como administrador
             
             new VentanaLoginAdmin(container);
+            frame.dispose();
         });
         frame.getContentPane().add(adminButton);
 

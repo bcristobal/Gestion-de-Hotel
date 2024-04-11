@@ -58,7 +58,7 @@ public class VentanaLoginAdmin {
                 @SuppressWarnings("deprecation")
                 Boolean isLoged = container.loginAdmin(textField.getText(), passwordField.getText());
                 if (isLoged) {
-                    //TODO: Open admin window
+                    new VentanaAdmin(container);
                     frame.setVisible(false);
                 }     
             }

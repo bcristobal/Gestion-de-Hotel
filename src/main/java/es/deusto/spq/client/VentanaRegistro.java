@@ -116,6 +116,8 @@ public class VentanaRegistro {
 
                 // Llamar al método para registrar al cliente en el servidor
                 container.registerCustomer(email, nombre, apellido, contraseña, dirección, teléfono);
+                frame.dispose();
+                new VentanaLogin(container);
             }
         });
 
