@@ -44,6 +44,7 @@ public class Container {
 		customerData.setPassword(password);
 		customerData.setAddress(address);
 		customerData.setPhone(phone);
+		
 		Response response = invocationBuilder.post(Entity.entity(customerData, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			logger.error("Error connecting with the server. Code: {}", response.getStatus());
