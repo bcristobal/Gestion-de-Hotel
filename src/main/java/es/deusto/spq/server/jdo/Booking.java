@@ -32,7 +32,7 @@ public class Booking {
     }
 
     public Room getRoom() {
-        return ro om;
+        return room;
     }
 
     public void setRoom(Room room) {
