@@ -1,5 +1,6 @@
 package es.deusto.spq.client;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.client.Client;
@@ -12,13 +13,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import es.deusto.spq.pojo.AdminData;
+import es.deusto.spq.pojo.BookingData;
 import es.deusto.spq.pojo.CustomerData;
-import es.deusto.spq.pojo.DirectMessage;
-import es.deusto.spq.pojo.MessageData;
 import es.deusto.spq.pojo.RoomData;
-import es.deusto.spq.pojo.UserData;
-import es.deusto.spq.server.jdo.Customer;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -46,6 +44,7 @@ public class Container {
 		customerData.setPassword(password);
 		customerData.setAddress(address);
 		customerData.setPhone(phone);
+		
 		Response response = invocationBuilder.post(Entity.entity(customerData, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			logger.error("Error connecting with the server. Code: {}", response.getStatus());
@@ -66,8 +65,44 @@ public class Container {
 				logger.error("Error connecting with the server. Code: {}, Endpoint: {}", response.getStatus(), loginCustomerWebTarget.getUri());
 				return false;
 			} else {
-				this.email = email;
+				Container.email = email;
 				logger.info("Customer correctly logged in");
+				return true;
+			}
+		}
+
+		public boolean loginAdmin (String userName, String password) {
+			WebTarget loginAdminWebTarget = webTarget.path("loginAdmin");
+			Invocation.Builder invocationBuilder = loginAdminWebTarget.request(MediaType.APPLICATION_JSON);
+			
+			AdminData adminData = new AdminData();
+			adminData.setUserName(userName);
+			adminData.setPassword(password);
+			Response response = invocationBuilder.post(Entity.entity(adminData, MediaType.APPLICATION_JSON));
+			if (response.getStatus() != Status.OK.getStatusCode()) {
+				logger.error("Error connecting with the server. Code: {}", response.getStatus());
+				return false;
+			} else {
+				logger.info("Admin correctly logged in");
+				return true;
+			}
+		}
+
+		public boolean bookRoom(int roomNumber, Date checkIn, int days) {
+			WebTarget bookRoomWebTarget = webTarget.path("bookRoom");
+			Invocation.Builder invocationBuilder = bookRoomWebTarget.request(MediaType.APPLICATION_JSON);
+			
+			BookingData bookingData = new BookingData();
+			bookingData.setRoom(roomNumber);
+			bookingData.setCustomer(email);
+			bookingData.setCheckIn(checkIn);
+			bookingData.setDays(days);
+			Response response = invocationBuilder.post(Entity.entity(bookingData, MediaType.APPLICATION_JSON));
+			if (response.getStatus() != Status.OK.getStatusCode()) {
+				logger.error("Error connecting with the server. Code: {}", response.getStatus());
+				return false;
+			} else {
+				logger.info("Room correctly booked");
 				return true;
 			}
 		}
@@ -95,10 +130,11 @@ public class Container {
 		String port = args[1];
 
 		Container container = new Container(hostname, port);
-		new VentanaRegistro(container);
-		new VentanaLogin(container);
-		new VentanaCliente(container);
+
+		new Main(container);
 
 		//container.registerCustomer("example@example.com", "Hello", "World", "root1234", "Baker Street", 123456789);
+		
+		
 	}
 }

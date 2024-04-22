@@ -10,8 +10,6 @@ import java.awt.event.ActionListener;
 
 public class VentanaAdmin {
 
-
-    private Container container;
     private JFrame frame;
 
     private JPanel pNorth = new JPanel(new BorderLayout());
@@ -22,12 +20,11 @@ public class VentanaAdmin {
     JButton bAdminReservas = new JButton("Administrar Reservas");
     JButton bAdminHabitaciones = new JButton("Administrar Habitaciones");
 
-    public VentanaAdmin() {
-        this.container = container;
-        initialize();
+    public VentanaAdmin(Container container) {
+        initialize(container);
     }
 
-    private void initialize() {
+    private void initialize(Container container) {
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(350, 250);
@@ -94,9 +91,5 @@ public class VentanaAdmin {
 
     public void mostrarVentana() {
         frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new VentanaAdmin();
     }
 }

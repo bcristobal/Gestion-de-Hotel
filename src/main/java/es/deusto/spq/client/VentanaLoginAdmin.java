@@ -8,18 +8,19 @@ import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VentanaLogin {
+public class VentanaLoginAdmin {
+    
     private JFrame frame;
     private JTextField textField;
     private JPasswordField passwordField;
 
-    public VentanaLogin(Container container) {
+    public VentanaLoginAdmin (Container container) {
         initialize(container);
     }
 
     private void initialize(Container container) {
         frame = new JFrame();
-        frame.setTitle("Login");
+        frame.setTitle("Login Administrador");
         frame.setBounds(100, 100, 450, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
@@ -55,13 +56,13 @@ public class VentanaLogin {
             public void actionPerformed(ActionEvent e) {
 
                 @SuppressWarnings("deprecation")
-                Boolean isLoged =container.loginCustomer(textField.getText(), passwordField.getText());
+                Boolean isLoged = container.loginAdmin(textField.getText(), passwordField.getText());
                 if (isLoged) {
-                    new VentanaCliente(container);
+                    new VentanaAdmin(container);
                     frame.setVisible(false);
                 }     
             }
-        }); 
+        });
 
         frame.getContentPane().add(btnLogin);
 

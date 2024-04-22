@@ -1,26 +1,29 @@
 package es.deusto.spq.server.jdo;
 
-import java.sql.Date;
-
-import javax.jdo.annotations.Persistent;
+import java.util.Date;
+import javax.jdo.annotations.ForeignKey;
+import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.PrimaryKey;
 
+@PersistenceCapable
 public class Booking {
     @PrimaryKey
     int id = 0;
-    @Persistent(mappedBy = "booking", dependentElement = "true")
+    //@Persistent(mappedBy = "booking", dependentElement = "true")
+    @ForeignKey
     Room room = null;
-    @Persistent(mappedBy = "booking", dependentElement = "true")
+    //@Persistent(mappedBy = "booking", dependentElement = "true")
+    @ForeignKey
     Customer customer = null;
     Date checkIn = null;
     int days = 0;
     // Posible añadir más atributos como el historial de reservas, etc.
 
-    public Booking(int id, Room room, Customer customer, Date checkIn, int days) {
+    public Booking(int id, Room room, Customer customer, Date date, int days) {
         this.id = id;
         this.room = room;
         this.customer = customer;
-        this.checkIn = checkIn;
+        this.checkIn = date;
         this.days = days;
     }
 
