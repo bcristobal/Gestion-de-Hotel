@@ -50,12 +50,18 @@ public class VentanaReservar extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Date checkin = (Date) checkinField.getValue();
-                System.out.println(checkin.toString());
+                    System.out.println(checkin.toString());
                     int days = Integer.parseInt(daysField.getText());
                     Boolean isBook = container.bookRoom(roomData.getNumber(), checkin, days);
                     if (isBook) {
                         JOptionPane.showMessageDialog(null, "Room booked successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        dispose();
+                        
+                        // Imprimir los detalles de la reserva en la consola
+                        System.out.println("Room Number: " + roomData.getNumber());
+                        System.out.println("Check-in Date: " + checkin.toString());
+                        System.out.println("Number of Days: " + days);
+                        
+                        dispose(); // Cierra la ventana de reserva
                     } else {
                         JOptionPane.showMessageDialog(null, "Room could not be booked", "Error", JOptionPane.ERROR_MESSAGE);
                     }
