@@ -20,7 +20,7 @@ Therefore, execute the following command to enhance the database classes
 
 Run the following command to create database schema for this sample.
 
-      mvn datanucleus:schema-create
+        mvn datanucleus:schema-create
 
 Use the contents of the file *seed.sql* to generate some rooms and an admin user. For example:
 
