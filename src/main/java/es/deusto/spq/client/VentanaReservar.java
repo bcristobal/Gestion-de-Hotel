@@ -17,16 +17,23 @@ import javax.swing.SpinnerDateModel;
 
 import es.deusto.spq.pojo.RoomData;
 
-public class VentanaReservar extends JFrame {
 
+
+public class VentanaReservar extends JFrame {
     private JLabel checkinLabel;
     private JSpinner checkinField;
     private JLabel daysLabel;
     private JTextField daysField;
     private JButton submitButton;
 
+    private Container container;
+    private RoomData roomData;
+
     public VentanaReservar(Container container, RoomData roomData) {
-        super("Reserve Room");
+        this.container = container;
+        this.roomData = roomData;
+
+     
         setSize(300, 200);
         setLayout(new BorderLayout());
 
@@ -50,17 +57,15 @@ public class VentanaReservar extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Date checkin = (Date) checkinField.getValue();
-                    System.out.println(checkin.toString());
                     int days = Integer.parseInt(daysField.getText());
-                    Boolean isBook = container.bookRoom(roomData.getNumber(), checkin, days);
+                    boolean isBook = container.bookRoom(roomData.getNumber(), checkin, days);
                     if (isBook) {
                         JOptionPane.showMessageDialog(null, "Room booked successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        
-                        // Imprimir los detalles de la reserva en la consola
-                        System.out.println("Room Number: " + roomData.getNumber());
-                        System.out.println("Check-in Date: " + checkin.toString());
-                        System.out.println("Number of Days: " + days);
-                        
+
+                        // Agrega la información de la reserva a la ventana de reservas
+                        VentanaReservas ventanaReservas = new VentanaReservas();
+                        ventanaReservas.agregarReserva("Room Number: " + roomData.getNumber() + ", Check-in Date: " + checkin.toString() + ", Number of Days: " + days);
+
                         dispose(); // Cierra la ventana de reserva
                     } else {
                         JOptionPane.showMessageDialog(null, "Room could not be booked", "Error", JOptionPane.ERROR_MESSAGE);
@@ -78,5 +83,5 @@ public class VentanaReservar extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
-
 }
+
