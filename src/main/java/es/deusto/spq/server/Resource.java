@@ -288,12 +288,5 @@ public class Resource {
       
 		}
 	}
-	
-	@GET
-	@Path("/hello")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response sayHello() {
-		return Response.ok("Hola Mundo(Hello World)").build();
-	}
 
 }

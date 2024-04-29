@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 import es.deusto.spq.pojo.AdminData;
 import es.deusto.spq.pojo.CustomerData;
+import es.deusto.spq.server.jdo.Admin;
 import es.deusto.spq.server.jdo.Customer;
 
 
@@ -109,9 +110,47 @@ public class ResourceTest {
             AdminData adminData = new AdminData();
             adminData.setUserName("admin");
             adminData.setPassword("1234");
-            
+
             // Call the method under test
-            //Response response = resource.loginAdmin(adminData);
-        }
+            Response response = resource.loginAmin(adminData);
+            // Check the expected response
+            assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
             
+            // Create a mock CustomerData object
+            Admin mockAdmin = mock(Admin.class);
+            when(mockAdmin.getUserName()).thenReturn("existingAdmin");
+            when(mockAdmin.getPassword()).thenReturn("password");
+            // Prepare the mock Persistence Manager to return the mock CustomerData
+            when(persistenceManager.getObjectById(Admin.class, "existingAdmin")).thenReturn(mockAdmin);
+
+            AdminData existingAdminData = new AdminData();
+            existingAdminData.setUserName("existingAdmin");
+            existingAdminData.setPassword("password");
+
+            // Call the method under test with existing customer
+            Response responseExisting = resource.loginAmin(existingAdminData);
+            // Check the expected response
+            assertEquals(Response.Status.OK, responseExisting.getStatusInfo()); 
+        }
+        
+        //TODO: Test bookRoom, getBookings, getCustomers, getAdmins
+
+        @Test
+        @SuppressWarnings("static-access")
+        public void testGetRooms() {
+            try (Response response = resource.getRooms()) {
+                // Check the expected response
+                assertEquals(Response.Status.OK, response.getStatusInfo());
+            } catch (Exception e) {
+            }
+        }
+
+        @Test
+        @SuppressWarnings("static-access")
+        public void testGetCustomers() {
+            // Call the method under test
+            Response response = resource.getCustomers();
+            // Check the expected response
+            assertEquals(Response.Status.OK, response.getStatusInfo());
+        }
 }
