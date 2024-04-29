@@ -3,6 +3,10 @@ JUnitPerf + Mockito + Jersey + DataNucleus + MySQL
 
 This example shows how to use JUnitPerf to test the performance of the REST API.
 
+Run the next command to clean and compile:
+
+      mvn clean complile
+
 Run the following command to compile all classes and launch the unit tests:
 
       mvn test
