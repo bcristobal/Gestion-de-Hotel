@@ -81,12 +81,12 @@ public class VentanaAdmin {
         	}
         });
         bAdminHabitaciones.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-        		new VentanaHabitaciones();
-			}
-		});
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Crear una instancia de VentanaHabitaciones pasando la lista de habitaciones
+                new VentanaHabitaciones(container.getRooms());
+            }
+        });
     }
 
     public void mostrarVentana() {
