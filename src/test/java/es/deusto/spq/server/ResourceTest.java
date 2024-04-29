@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 import es.deusto.spq.pojo.AdminData;
 import es.deusto.spq.pojo.CustomerData;
+import es.deusto.spq.pojo.RoomData;
 import es.deusto.spq.server.jdo.Admin;
 import es.deusto.spq.server.jdo.Customer;
 
@@ -133,7 +134,7 @@ public class ResourceTest {
             assertEquals(Response.Status.OK, responseExisting.getStatusInfo()); 
         }
         
-        //TODO: Test bookRoom, getBookings, getCustomers, getAdmins
+        //TODO: Test bookRoom, getBookings, resgisterRoom 
 
         @Test
         @SuppressWarnings("static-access")
@@ -153,4 +154,21 @@ public class ResourceTest {
             // Check the expected response
             assertEquals(Response.Status.OK, response.getStatusInfo());
         }
+
+        @Test
+    public void testRegisterRoom() {
+        // prepare mock Persistence Manager to return User
+        RoomData roomData = new RoomData();
+        roomData.setNumber(1);
+        roomData.setCapacity(2);
+        roomData.setType("Double");
+        roomData.setPrice(100);
+        roomData.setDescription("A big room with a double bed");
+
+        //call tested method
+        Response response = resource.registerRoom(roomData);
+
+        //check expected response
+        assertEquals(Response.Status.OK, response.getStatusInfo());
+    }
 }
