@@ -155,8 +155,7 @@ public class Resource {
             if (tx.isActive())
             {
                 tx.rollback();
-            }
-      
+            }    
 		}
 	}
 

@@ -3,6 +3,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.Date;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -17,10 +19,12 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import es.deusto.spq.pojo.AdminData;
+import es.deusto.spq.pojo.BookingData;
 import es.deusto.spq.pojo.CustomerData;
 import es.deusto.spq.pojo.RoomData;
 import es.deusto.spq.server.jdo.Admin;
 import es.deusto.spq.server.jdo.Customer;
+import es.deusto.spq.server.jdo.Room;
 
 
 public class ResourceTest {
@@ -135,6 +139,60 @@ public class ResourceTest {
         }
         
         //TODO: Test bookRoom, getBookings, resgisterRoom 
+
+        @Test
+        public void testBookRoom() {
+            // Prepare test data
+            RoomData roomData = new RoomData();
+            roomData.setNumber(1);
+            roomData.setCapacity(2);
+            roomData.setType("Double");
+            roomData.setPrice(100);
+            roomData.setDescription("A big room with a double bed");
+
+            CustomerData customerData = new CustomerData();
+            customerData.setEmail("turin@example.com");
+            customerData.setPassword("1234");
+            customerData.setName("Alan");
+            customerData.setSurname("Turin");
+            customerData.setAddress("Turin Street 123");
+            customerData.setPhone(123456789);
+
+            BookingData bookingData = new BookingData();
+            bookingData.setId(0);
+            bookingData.setRoom(roomData.getNumber());
+            bookingData.setCustomer(customerData.getEmail());
+            Date date = new Date();
+            bookingData.setCheckIn(date);
+            bookingData.setDays(3);
+            
+            // Call the method under test
+            Response response = resource.bookRoom(bookingData);
+            // Check the expected response
+            assertEquals(Response.Status.OK, response.getStatusInfo());
+
+            Room mockRoom = mock(Room.class);
+            when(mockRoom.getNumber()).thenReturn(1);
+            when(mockRoom.getCapacity()).thenReturn(2);
+            when(mockRoom.getType()).thenReturn("Double");
+            when(mockRoom.getPrice()).thenReturn(100.00);
+            when(mockRoom.getDescription()).thenReturn("A big room with a double bed");
+            when(persistenceManager.getObjectById(Room.class, 1)).thenReturn(mockRoom);
+
+            Customer mockCustomer = mock(Customer.class);
+            when(mockCustomer.getEmail()).thenReturn("turin@example.com");
+            when(mockCustomer.getPassword()).thenReturn("1234");
+            when(mockCustomer.getName()).thenReturn("Alan");
+            when(mockCustomer.getSurname()).thenReturn("Turin");
+            when(mockCustomer.getAddress()).thenReturn("Turin Street 123");
+            when(mockCustomer.getPhone()).thenReturn(123456789);
+            when(persistenceManager.getObjectById(Customer.class, "turin@example.com")).thenReturn(mockCustomer);
+
+             // Call the method under test
+            response = resource.bookRoom(bookingData);
+             // Check the expected response
+            assertEquals(Response.Status.OK, response.getStatusInfo());
+        }
 
         @Test
         @SuppressWarnings("static-access")
