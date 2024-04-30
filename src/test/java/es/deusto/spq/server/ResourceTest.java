@@ -208,6 +208,11 @@ public class ResourceTest {
         @SuppressWarnings("static-access")
         public void testGetCustomers() {
             // Call the method under test
+            try (Response response = resource.getCustomers()) {
+                // Check the expected response
+                assertEquals(Response.Status.OK, response.getStatusInfo());
+            } catch (Exception e) {
+            }
             Response response = resource.getCustomers();
             // Check the expected response
             assertEquals(Response.Status.OK, response.getStatusInfo());
