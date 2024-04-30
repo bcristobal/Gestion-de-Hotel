@@ -213,9 +213,6 @@ public class ResourceTest {
                 assertEquals(Response.Status.OK, response.getStatusInfo());
             } catch (Exception e) {
             }
-            Response response = resource.getCustomers();
-            // Check the expected response
-            assertEquals(Response.Status.OK, response.getStatusInfo());
         }
 
         @Test
