@@ -134,6 +134,9 @@ public class VentanaCliente extends JFrame {
         pDrcha.add(scrollPane, BorderLayout.NORTH);
         pDrcha.add(imagePanel);
 
+
+        
+
         SliderPrecio.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
