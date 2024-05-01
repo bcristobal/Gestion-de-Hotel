@@ -45,12 +45,12 @@ public class ServerIntegrationTest {
             tx.begin();
             pm.makePersistent(new Customer("turin@example.com", "1234", "Alan", "Turin", "Turin Street 123", 123456789));
             tx.commit();
-        } catch (Exception e) {
+        } finally {
             if (tx.isActive()) {
                 tx.rollback();
             }
-        e.printStackTrace();
-    }
+            pm.close();
+        }
     }
 
     @Before
@@ -111,8 +111,8 @@ public class ServerIntegrationTest {
         Response response = target.path("loginCustomer")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(customerData, MediaType.APPLICATION_JSON));
-
         assertEquals(Family.SUCCESSFUL, response.getStatusInfo().getFamily());
+
     }
 
     @Test
