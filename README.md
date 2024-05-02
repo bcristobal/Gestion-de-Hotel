@@ -1,17 +1,16 @@
-JUnitPerf + Mockito + Jersey + DataNucleus + MySQL
+Gestión de Hotel
 ==================================================
-
-This example shows how to use JUnitPerf to test the performance of the REST API.
+## Run Locally
 
 Run the next command to clean and compile:
 
-      mvn clean complile
+      mvn clean compile
 
 Run the following command to compile all classes and launch the unit tests:
 
       mvn test
 
-Make sure that the database was correctly configured. Use the contents of the file *create-message.sql* to create the database and grant privileges. For example:
+Make sure that the database was correctly configured. Use the contents of the file *create-hotels.sql* to create the database and grant privileges. For example:
 
       mysql –uroot -p < sql/create-hotels.sql
 
@@ -24,7 +23,7 @@ Therefore, execute the following command to enhance the database classes
 
 Run the following command to create database schema for this sample.
 
-        mvn datanucleus:schema-create
+      mvn datanucleus:schema-create
 
 Use the contents of the file *seed.sql* to generate some rooms and an admin user. For example:
 
@@ -47,3 +46,9 @@ To launch the server run the command
 Now, the client sample code can be executed in a new command window with
       
       mvn exec:java -Pclient
+
+## Authors
+* [@AlexGarcia0](https://www.github.com/AlexGarcia0)
+* [@bcristobal](https://www.github.com/bcristobal)
+* [@BeltranSendagorta](https://www.github.com/BeltranSendagorta)
+* [@MarioArmellini](https://www.github.com/MarioArmellini)

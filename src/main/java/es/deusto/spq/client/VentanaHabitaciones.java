@@ -1,6 +1,5 @@
 package es.deusto.spq.client;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +12,7 @@ public class VentanaHabitaciones extends JFrame {
     private JButton bEliminarHabitacion = new JButton("Eliminar");
     private DefaultListModel<String> modeloHabitaciones = new DefaultListModel<>();
     private JList<String> listaHabitaciones = new JList<>(modeloHabitaciones);
+    @SuppressWarnings("unused")
     private List<RoomData> habitaciones; // Variable de instancia para almacenar las habitaciones
 
     public VentanaHabitaciones(List<RoomData> habitaciones) {

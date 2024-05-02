@@ -5,7 +5,6 @@ import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable
 public class Admin {
-    //TODO: Posible añadir un id a través de un atributo autoincremental stático
     @PrimaryKey
     String userName = null;
     String password = null;

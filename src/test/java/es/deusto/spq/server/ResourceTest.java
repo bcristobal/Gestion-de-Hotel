@@ -138,8 +138,6 @@ public class ResourceTest {
             assertEquals(Response.Status.OK, responseExisting.getStatusInfo()); 
         }
         
-        //TODO: Test bookRoom, getBookings, resgisterRoom 
-
         @Test
         public void testBookRoom() {
             // Prepare test data

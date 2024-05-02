@@ -210,7 +210,6 @@ bReservar.addActionListener(new ActionListener() {
         });
     }
 
-    // TODO: Use the method below to load images
     @SuppressWarnings("unused")
     private void loadImage(String path) {
         ImageIcon imageIcon = new ImageIcon(path);

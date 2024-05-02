@@ -26,7 +26,9 @@ public class VentanaReservar extends JFrame {
     private JTextField daysField;
     private JButton submitButton;
 
+    @SuppressWarnings("unused")
     private Container container;
+    @SuppressWarnings("unused")
     private RoomData roomData;
 
     public VentanaReservar(Container container, RoomData roomData) {
