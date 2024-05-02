@@ -36,6 +36,8 @@ import es.deusto.spq.pojo.RoomData;
 public class VentanaCliente extends JFrame {
     private static final long serialVersionUID = 1L;
 
+    
+
     private JPanel pNorth = new JPanel(new BorderLayout());
     private JPanel pNorthDrch = new JPanel(new BorderLayout());
     private JPanel pSouth = new JPanel(new GridLayout());
@@ -178,6 +180,13 @@ public class VentanaCliente extends JFrame {
                 popupMenu.show(source, 0, source.getHeight());
             }
         });
+        menuItemCerrarSesion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close the current window
+                Main.main(null); // Open the Main class
+            }
+        });
 
 bReservar.addActionListener(new ActionListener() {
 			
@@ -188,6 +197,10 @@ bReservar.addActionListener(new ActionListener() {
 				new VentanaReservar(container, room);
 			}
 		});
+        
+        
+
+
 
         menuItemReservas.addActionListener(new ActionListener() {
             @Override
@@ -223,3 +236,4 @@ class RoomListRenderer extends JLabel implements ListCellRenderer<RoomData> {
         return this;
     }
 }
+
