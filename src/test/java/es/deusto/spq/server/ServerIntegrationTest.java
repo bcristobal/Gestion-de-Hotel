@@ -2,6 +2,8 @@ package es.deusto.spq.server;
 
 import static org.junit.Assert.assertEquals;
 
+import java.sql.Date;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -23,7 +25,9 @@ import org.junit.experimental.categories.Category;
 
 import categories.IntegrationTest;
 import es.deusto.spq.pojo.AdminData;
+import es.deusto.spq.pojo.BookingData;
 import es.deusto.spq.pojo.CustomerData;
+import es.deusto.spq.pojo.RoomData;
 import es.deusto.spq.server.jdo.Booking;
 import es.deusto.spq.server.jdo.Customer;
 
@@ -127,4 +131,37 @@ public class ServerIntegrationTest {
                 .post(Entity.entity(adminData, MediaType.APPLICATION_JSON));
         assertEquals(Family.SUCCESSFUL, response.getStatusInfo().getFamily());
     }
+
+    @Test
+    public void testBookRoom() {
+        BookingData bookingData = new BookingData();
+        bookingData.setRoom(101);
+        bookingData.setCustomer("test@example.com");
+        Date checkInDate = new Date(0); // Año 2024, mes 4 (0-indexado), día 30
+        bookingData.setCheckIn(checkInDate);
+        bookingData.setDays(3);
+
+        Response response = target.path("bookRoom")
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.entity(bookingData, MediaType.APPLICATION_JSON));
+
+        assertEquals(Family.SUCCESSFUL, response.getStatusInfo().getFamily());
+    }
+
+    @Test
+    public void testRegisterRoom() {
+        RoomData roomData = new RoomData();
+        roomData.setNumber(101);
+        roomData.setCapacity(2);
+        roomData.setType("Double");
+        roomData.setPrice(100.0);
+        roomData.setDescription("Double room");
+
+        Response response = target.path("registerRoom")
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.entity(roomData, MediaType.APPLICATION_JSON));
+
+        assertEquals(Family.SUCCESSFUL, response.getStatusInfo().getFamily());
+    }
+
 }
