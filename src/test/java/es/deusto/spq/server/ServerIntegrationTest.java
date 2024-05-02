@@ -43,7 +43,7 @@ public class ServerIntegrationTest {
         Transaction tx = pm.currentTransaction();
         try {
             tx.begin();
-            pm.makePersistent(new Customer("turin@example.com", "1234", "Alan", "Turin", "Turin Street 123", 123456789));
+            pm.makePersistent(new Customer("turin@example.com", "Alan", "Turin", "1234", "Turin Street 123", 123456789));
             tx.commit();
         } finally {
             if (tx.isActive()) {
@@ -102,9 +102,9 @@ public class ServerIntegrationTest {
         CustomerData customerData = new CustomerData();
         // Set customer data here
         customerData.setEmail("turin@example.com");
-        customerData.setPassword("1234");
         customerData.setName("Alan");
         customerData.setSurname("Turin");
+        customerData.setPassword("1234");
         customerData.setAddress("Turin Street 123");
         customerData.setPhone(123456789);
 
@@ -120,12 +120,11 @@ public class ServerIntegrationTest {
         AdminData adminData = new AdminData();
         // Set admin data here
         adminData.setUserName("admin");
-        adminData.setPassword("1234");
+        adminData.setPassword("admin");
 
-        Response response = target.path("loginAmin")
+        Response response = target.path("loginAdmin")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(adminData, MediaType.APPLICATION_JSON));
-
         assertEquals(Family.SUCCESSFUL, response.getStatusInfo().getFamily());
     }
 }
