@@ -7,7 +7,7 @@
 	<groupId>psc.grupo13</groupId>
 	<artifactId>Gestion-de-Hotel</artifactId>
 	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>Gestion-de-Hotel</name>
 
 	<properties>
@@ -17,8 +17,8 @@
 		<jersey.version>2.35</jersey.version>
 		<server.hostname>127.0.0.1</server.hostname>
 		<server.port>8080</server.port>
-		<sonar.organization>unaguil</sonar.organization> <!-- Cambiar por el nombre de la organización de SonarCloud -->
-  		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.organization>bcristobal</sonar.organization> <!-- Cambiar por el nombre de la organización de SonarCloud -->
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<dependencyManagement>
@@ -62,13 +62,13 @@
 
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
-    		<artifactId>log4j-api</artifactId>
-    		<version>2.23.1</version>
-  		</dependency>
-  		<dependency>
- 			<groupId>org.apache.logging.log4j</groupId>
-    		<artifactId>log4j-core</artifactId>
-    		<version>2.23.1</version>
+			<artifactId>log4j-api</artifactId>
+			<version>2.23.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.23.1</version>
 		</dependency>
 
 		<dependency>
@@ -84,7 +84,7 @@
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
         </dependency>
@@ -103,10 +103,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-      		<groupId>com.github.noconnor</groupId>
-      		<artifactId>junitperf</artifactId>
-      		<version>1.35.0</version>
-    	</dependency>
+			<groupId>com.github.noconnor</groupId>
+			<artifactId>junitperf</artifactId>
+			<version>1.35.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -214,15 +214,15 @@
 			</plugin>
 
 			<plugin>
-       			<groupId>org.apache.maven.plugins</groupId>
-        		<artifactId>maven-surefire-plugin</artifactId>
-        		<version>3.0.0</version>
-        		<configuration>
-          			<!-- Allow JUnitPerf to access the test classes in JDK 17 -->
-          			<argLine>@{argLine} --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<!-- Allow JUnitPerf to access the test classes in JDK 17 -->
+					<argLine>@{argLine} --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
 					<excludedGroups>categories.IntegrationTest, categories.PerformanceTest</excludedGroups>
-        		</configuration>
-      		</plugin>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
