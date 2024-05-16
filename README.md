@@ -47,7 +47,28 @@ Now, the client sample code can be executed in a new command window with
       
       mvn exec:java -Pclient
 
+## Documentation
+
+Maven site generation can be launched with
+
+    mvn site
+
+After process is finished go to **target/site** folder and open the main **index.hmtl** file to see the reports.
+
+To generate the Doxygen documentation you first need to download and configure doxygen tool on your path.
+Generate the output directory by running
+
+    mvn compile
+
+Then change to **src/main/resources** directory and run the following command
+
+    cd src/main/resources
+    doxygen Doxyfile
+
+The generated documentation will be written to the **/target/doxygen** directory.
+
 ## Authors
+
 * [@AlexGarcia0](https://www.github.com/AlexGarcia0)
 * [@bcristobal](https://www.github.com/bcristobal)
 * [@BeltranSendagorta](https://www.github.com/BeltranSendagorta)
