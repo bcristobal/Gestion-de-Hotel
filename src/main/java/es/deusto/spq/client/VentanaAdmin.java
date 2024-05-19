@@ -84,7 +84,7 @@ public class VentanaAdmin {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Crear una instancia de VentanaHabitaciones pasando la lista de habitaciones
-                new VentanaHabitaciones(container.getRooms());
+                new VentanaHabitaciones(container.getRooms(), container);
             }
         });
     }

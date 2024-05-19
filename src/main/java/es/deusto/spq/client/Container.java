@@ -120,6 +120,26 @@ public class Container {
 			}
 		}
 
+		public boolean registerRoom(int number, int capacity, String type, double price, String description) {
+			WebTarget registerRoomWebTarget = webTarget.path("registerRoom");
+			Invocation.Builder invocationBuilder = registerRoomWebTarget.request(MediaType.APPLICATION_JSON);
+			
+			RoomData roomData = new RoomData();
+			roomData.setNumber(number);
+			roomData.setCapacity(capacity);
+			roomData.setType(type);
+			roomData.setPrice(price);
+			roomData.setDescription(description);
+			Response response = invocationBuilder.post(Entity.entity(roomData, MediaType.APPLICATION_JSON));
+			if (response.getStatus() != Status.OK.getStatusCode()) {
+				logger.error("Error connecting with the server. Code: {}", response.getStatus());
+				return false;
+			} else {
+				logger.info("Room correctly registered");
+				return true;
+			}
+		}
+
 		public static void main(String[] args) {
 		if (args.length != 2) {
 			logger.info("Use: java Client.Client [host] [port]");
