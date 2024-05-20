@@ -1,5 +1,4 @@
 package es.deusto.spq.client;
-
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -11,15 +10,18 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
-
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class VentanaReservas extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private JButton bEliminarReserva = new JButton("Eliminar");
-    private JButton bEditarReserva = new JButton("Editar"); // Nuevo botón de editar
+    private JButton bEditarReserva = new JButton("Editar");
     private DefaultListModel<String> modeloReservas = new DefaultListModel<>();
     private JList<String> listaReservas = new JList<>(modeloReservas);
     private static List<String> reservas = new ArrayList<>();
@@ -40,7 +42,6 @@ public class VentanaReservas extends JFrame {
         JScrollPane scrollPane = new JScrollPane(listaReservas);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Agregar el botón de editar y el botón de eliminar en un panel
         JPanel panelBotones = new JPanel();
         panelBotones.add(bEliminarReserva);
         panelBotones.add(bEditarReserva);
@@ -62,15 +63,33 @@ public class VentanaReservas extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int index = listaReservas.getSelectedIndex();
                 if (index != -1) {
-                    // Aquí puedes implementar la lógica para editar la reserva seleccionada
-                    // Por ejemplo, puedes abrir una nueva ventana para editar la reserva
+                    String reservaSeleccionada = modeloReservas.getElementAt(index);
+                    editarReserva(reservaSeleccionada);
                 }
             }
         });
+
+        listaReservas.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                bEditarReserva.setEnabled(listaReservas.getSelectedIndex() != -1);
+                bEliminarReserva.setEnabled(listaReservas.getSelectedIndex() != -1);
+            }
+        });
+    }
+
+    private void editarReserva(String reservaSeleccionada) {
+        String nuevaReserva = JOptionPane.showInputDialog(this, "Editar Reserva:", reservaSeleccionada);
+        if (nuevaReserva != null && !nuevaReserva.isEmpty()) {
+            int index = modeloReservas.indexOf(reservaSeleccionada);
+            modeloReservas.setElementAt(nuevaReserva, index);
+            reservas.set(index, nuevaReserva);
+        }
     }
 
     public void agregarReserva(String informacionReserva) {
         modeloReservas.addElement(informacionReserva);
         reservas.add(informacionReserva);
     }
+
 }
