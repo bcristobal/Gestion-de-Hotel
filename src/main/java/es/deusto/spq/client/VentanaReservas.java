@@ -13,14 +13,15 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
+import javax.swing.JPanel;
+
 public class VentanaReservas extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private JButton bEliminarReserva = new JButton("Eliminar");
+    private JButton bEditarReserva = new JButton("Editar"); // Nuevo botón de editar
     private DefaultListModel<String> modeloReservas = new DefaultListModel<>();
     private JList<String> listaReservas = new JList<>(modeloReservas);
-
-    // Lista estática de reservas
     private static List<String> reservas = new ArrayList<>();
 
     public VentanaReservas() {
@@ -32,34 +33,44 @@ public class VentanaReservas extends JFrame {
                 (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()) / 2));
         setVisible(true);
 
-        // Cargar las reservas al modelo de la lista
         for (String reserva : reservas) {
             modeloReservas.addElement(reserva);
         }
 
-        // Agregar la lista de reservas dentro de un JScrollPane para permitir el desplazamiento si hay muchas reservas
         JScrollPane scrollPane = new JScrollPane(listaReservas);
         add(scrollPane, BorderLayout.CENTER);
 
-        add(bEliminarReserva, BorderLayout.SOUTH);
+        // Agregar el botón de editar y el botón de eliminar en un panel
+        JPanel panelBotones = new JPanel();
+        panelBotones.add(bEliminarReserva);
+        panelBotones.add(bEditarReserva);
+        add(panelBotones, BorderLayout.SOUTH);
 
         bEliminarReserva.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int index = listaReservas.getSelectedIndex();
                 if (index != -1) {
-                    // Remover reserva del modelo y de la lista estática
                     modeloReservas.remove(index);
                     reservas.remove(index);
                 }
             }
         });
+
+        bEditarReserva.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = listaReservas.getSelectedIndex();
+                if (index != -1) {
+                    // Aquí puedes implementar la lógica para editar la reserva seleccionada
+                    // Por ejemplo, puedes abrir una nueva ventana para editar la reserva
+                }
+            }
+        });
     }
 
-    // Método para agregar la información de la reserva a la lista de reservas
     public void agregarReserva(String informacionReserva) {
         modeloReservas.addElement(informacionReserva);
-        // Agregar reserva a la lista estática
         reservas.add(informacionReserva);
     }
 }
