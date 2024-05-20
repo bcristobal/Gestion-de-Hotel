@@ -288,4 +288,38 @@ public class Resource {
 		}
 	}
 
+	@POST
+	@Path("/deleteRoom")
+	public Response deleteRoom(RoomData roomData) {
+		try
+		{	
+			tx.begin();
+			logger.info("Checking whether the room already exits or not: '{}'", roomData.getNumber());
+			Room room = null;
+			try {
+				room = pm.getObjectById(Room.class, roomData.getNumber());
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				logger.info("Exception launched: {}", jonfe.getMessage());
+			}
+			logger.info("room: {}", room);
+			if (room != null) { // this room already exists
+				logger.info("This room already exists: {}", room);
+				pm.deletePersistent(room);
+				logger.info("Room deleted: {}", room);
+			} else { // this room does not exist
+				logger.info("Room does not exist: {}", roomData.getNumber());
+			}
+			tx.commit();
+			return Response.ok().build();
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+	  
+		}
+	}
+
 }

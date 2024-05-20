@@ -44,12 +44,13 @@ public class VentanaHabitaciones extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int index = listaHabitaciones.getSelectedIndex();
                 if (index != -1) {
+                    // Eliminar de la base de datos
+                    RoomData roomData = habitaciones.get(index);
+                    container.deleteRoom(roomData.getNumber(), roomData.getCapacity(), roomData.getType(), roomData.getPrice(), roomData.getDescription());
                     // Eliminar del modelo
                     modeloHabitaciones.remove(index);
                     // Eliminar del objeto List<RoomData>
                     habitaciones.remove(index);
-                    // Eliminar de la base de datos
-                    //TODO: Eliminar la habitación de la base de datos
                 }
             }
         });

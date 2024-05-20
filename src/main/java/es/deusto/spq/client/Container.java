@@ -140,6 +140,26 @@ public class Container {
 			}
 		}
 
+		public boolean deleteRoom(int number, int capacity, String type, double price, String description) {
+			WebTarget deleteRoomWebTarget = webTarget.path("deleteRoom");
+			Invocation.Builder invocationBuilder = deleteRoomWebTarget.request(MediaType.APPLICATION_JSON);
+			
+			RoomData roomData = new RoomData();
+			roomData.setNumber(number);
+			roomData.setCapacity(capacity);
+			roomData.setType(type);
+			roomData.setPrice(price);
+			roomData.setDescription(description);
+			Response response = invocationBuilder.post(Entity.entity(roomData, MediaType.APPLICATION_JSON));
+			if (response.getStatus() != Status.OK.getStatusCode()) {
+				logger.error("Error connecting with the server. Code: {}", response.getStatus());
+				return false;
+			} else {
+				logger.info("Room correctly deleted");
+				return true;
+			}
+		}
+
 		public static void main(String[] args) {
 		if (args.length != 2) {
 			logger.info("Use: java Client.Client [host] [port]");
