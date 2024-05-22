@@ -229,4 +229,21 @@ public class ResourceTest {
         //check expected response
         assertEquals(Response.Status.OK, response.getStatusInfo());
     }
+
+    @Test
+    public void testDeleteRoom() {
+        // Prepare test data
+        RoomData roomData = new RoomData();
+        roomData.setNumber(1);
+
+        Room mockRoom = mock(Room.class);
+        when(persistenceManager.getObjectById(Room.class, 1)).thenReturn(mockRoom);
+        Response response = resource.deleteRoom(roomData);
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        when(persistenceManager.getObjectById(Room.class, 2)).thenThrow(new javax.jdo.JDOObjectNotFoundException());
+        roomData.setNumber(2);
+        Response responseNotFound = resource.deleteRoom(roomData);
+        assertEquals(Response.Status.OK.getStatusCode(), responseNotFound.getStatus());
+    }
+
 }
