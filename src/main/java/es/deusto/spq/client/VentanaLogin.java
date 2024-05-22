@@ -7,6 +7,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class VentanaLogin {
     private JFrame frame;
@@ -52,12 +54,7 @@ public class VentanaLogin {
         btnLogin.setBounds(152, 171, 130, 29);
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                @SuppressWarnings("deprecation")
-                Boolean isLogged = container.loginCustomer(textField.getText(), passwordField.getText());
-                if (isLogged) {
-                    new VentanaCliente(container);
-                    frame.setVisible(false);
-                }
+                login();
             }
         });
         frame.getContentPane().add(btnLogin);
@@ -74,8 +71,34 @@ public class VentanaLogin {
         });
         frame.getContentPane().add(backButton);
 
+        // ActionListener para el campo de contraseña
+        passwordField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    login();
+                }
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+
         // Make the frame visible
         frame.setVisible(true);
+    }
+
+    // Método para realizar el login
+    private void login() {
+        @SuppressWarnings("deprecation")
+        Boolean isLogged = container.loginCustomer(textField.getText(), passwordField.getText());
+        if (isLogged) {
+            new VentanaCliente(container);
+            frame.setVisible(false);
+        }
     }
 
     public void mostrarVentana() {
