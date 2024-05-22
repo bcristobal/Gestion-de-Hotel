@@ -19,6 +19,11 @@ public class RoomTest {
     }
 
     @Test
+    public void testSetNumber() {
+        room.setNumber(3);
+        assertEquals(3, room.getNumber());
+    }
+    @Test
     public void testGetCapacity() {
         assertEquals(2, room.getCapacity());
     }
