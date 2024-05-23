@@ -3,8 +3,6 @@ package es.deusto.spq.server;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.net.URI;
 
 import org.glassfish.grizzly.http.server.HttpServer;
